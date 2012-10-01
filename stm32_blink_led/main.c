@@ -1,3 +1,6 @@
+// galaz 1
+
+
 /** \file main.c
  * \brief Sample STM32 project
  * \details This file holds a very basic code for STM32F103RB. This code
