@@ -1,5 +1,5 @@
 // galaz 1
-
+// komit 2 dla galaz 1
 
 /** \file main.c
  * \brief Sample STM32 project
