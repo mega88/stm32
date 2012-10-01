@@ -85,6 +85,7 @@ int main(void)
 
 	while (1)
 	{
+		if(1);
 		for (count = 0; count < count_max; count++);	// delay
 		LED_bb = 1;
 		for (count = 0; count < count_max; count++);	// delay
