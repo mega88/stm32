@@ -76,6 +76,7 @@ static void system_init(void);
 
 int main(void)
 {
+	//dupa blada
 	volatile uint32_t count, count_max = 1000000;
 
 	system_init();
