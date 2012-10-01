@@ -1,0 +1,3077 @@
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"vectors.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.6.2 20120613 (release) [ARM/embedded-4_6-
+  15              	@	compiled by GNU C version 4.2.1-sjlj (mingw32-2), GMP version 4.3.2, MPFR version 2.4.2, MPC vers
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -imultilib armv7-m
+  18              	@ -iprefix c:\program files\gnu tools arm embedded\4.6 2012q2\bin\../lib/gcc/arm-none-eabi/4.6.2/
+  19              	@ -isysroot c:\program files\gnu tools arm embedded\4.6 2012q2\bin\../arm-none-eabi
+  20              	@ -MD out/vectors.d -MF out/vectors.d -MP -MQ out/vectors.o
+  21              	@ -D__USES_INITFINI__ -D STM32F10X_MD vectors.c -mcpu=cortex-m3 -mthumb
+  22              	@ -auxbase-strip out/vectors.o -g -ggdb3 -O0 -Wall -Wstrict-prototypes
+  23              	@ -Wextra -std=gnu90 -ffunction-sections -fdata-sections -fverbose-asm
+  24              	@ options enabled:  -fauto-inc-dec -fbranch-count-reg -fcommon
+  25              	@ -fdata-sections -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  26              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse
+  27              	@ -ffunction-sections -fgcse-lm -fident -finline-functions-called-once
+  28              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  29              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  30              	@ -fmerge-debug-strings -fmove-loop-invariants -fpeephole
+  31              	@ -fprefetch-loop-arrays -freg-struct-return
+  32              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  33              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  34              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  35              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  36              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -ftrapping-math
+  37              	@ -ftree-cselim -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im
+  38              	@ -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+  39              	@ -ftree-phiprop -ftree-pta -ftree-reassoc -ftree-scev-cprop
+  40              	@ -ftree-slp-vectorize -ftree-vect-loop-version -funit-at-a-time
+  41              	@ -fverbose-asm -fzero-initialized-in-bss -mfix-cortex-m3-ldrd
+  42              	@ -mlittle-endian -msched-prolog -mthumb -munaligned-access
+  43              	
+  44              		.text
+  45              	.Ltext0:
+  46              	@ Compiler executable checksum: dbefde2a0f54b62e3321e10f41e245fe
+  47              	
+  48              		.cfi_sections	.debug_frame
+  49              		.section	.text.__Default_Handler,"ax",%progbits
+  50              		.align	2
+  51              		.thumb
+  52              		.thumb_func
+  53              		.type	__Default_Handler, %function
+  54              	__Default_Handler:
+  55              	.LFB0:
+  56              		.file 1 "vectors.c"
+   1:vectors.c     **** /** \file vectors.c
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 2
+
+
+   2:vectors.c     ****  * \brief STM32F1x low- / medium- / high-density vector table and
+   3:vectors.c     ****  * __Default_Handler()
+   4:vectors.c     ****  * \details STM32F1x low- / medium- / high-density vector table and
+   5:vectors.c     ****  * __Default_Handler()
+   6:vectors.c     ****  * \author Freddie Chopin, http://www.freddiechopin.info/
+   7:vectors.c     ****  * \date 2012-01-07
+   8:vectors.c     ****  */
+   9:vectors.c     **** 
+  10:vectors.c     **** /******************************************************************************
+  11:vectors.c     **** * chip: STM32F1x low- / medium- / high-density
+  12:vectors.c     **** * compiler: arm-none-eabi-gcc (Sourcery CodeBench Lite 2011.09-69) 4.6.1
+  13:vectors.c     **** ******************************************************************************/
+  14:vectors.c     **** 
+  15:vectors.c     **** /*------------------------------------------------------------------------*//**
+  16:vectors.c     **** * \brief Default interrupt handler.
+  17:vectors.c     **** * \details Default interrupt handler, used for interrupts that don't have their
+  18:vectors.c     **** * own handler defined.
+  19:vectors.c     **** *//*-------------------------------------------------------------------------*/
+  20:vectors.c     **** 
+  21:vectors.c     **** static void __Default_Handler(void) __attribute__ ((interrupt));
+  22:vectors.c     **** static void __Default_Handler(void)
+  23:vectors.c     **** {
+  57              		.loc 1 23 0
+  58              		.cfi_startproc
+  59              		@ Stack Align: May be called with mis-aligned SP.
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 1, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+  63 0000 6846     		mov	r0, sp	@,
+  64              		.cfi_register 13, 0
+  65 0002 20F00701 		bic	r1, r0, #7	@,,
+  66 0006 8D46     		mov	sp, r1	@,
+  67 0008 81B4     		push	{r0, r7}	@
+  68              	.LCFI0:
+  69              		.cfi_def_cfa_offset 8
+  70              		.cfi_offset 7, -4
+  71              		.cfi_offset 13, -8
+  72 000a 00AF     		add	r7, sp, #0	@,,
+  73              	.LCFI1:
+  74              		.cfi_def_cfa_register 7
+  75              	.L2:
+  24:vectors.c     **** 	while (1);
+  76              		.loc 1 24 0 discriminator 1
+  77 000c FEE7     		b	.L2	@
+  78              		.cfi_endproc
+  79              	.LFE0:
+  80              		.size	__Default_Handler, .-__Default_Handler
+  81              		.global	vectors
+  82 000e 00BF     		.section	.vectors,"a",%progbits
+  83              		.align	2
+  84              		.type	vectors, %object
+  85              		.size	vectors, 304
+  86              	vectors:
+  87 0000 00000000 		.word	__main_stack_end
+  88 0004 00000000 		.word	Reset_Handler
+  89 0008 00000000 		.word	NMI_Handler
+  90 000c 00000000 		.word	HardFault_Handler
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 3
+
+
+  91 0010 00000000 		.word	MemManage_Handler
+  92 0014 00000000 		.word	BusFault_Handler
+  93 0018 00000000 		.word	UsageFault_Handler
+  94 001c 00000000 		.word	__Reserved_0x1C_Handler
+  95 0020 00000000 		.word	__Reserved_0x20_Handler
+  96 0024 00000000 		.word	__Reserved_0x24_Handler
+  97 0028 00000000 		.word	__Reserved_0x28_Handler
+  98 002c 00000000 		.word	SVC_Handler
+  99 0030 00000000 		.word	DebugMon_Handler
+ 100 0034 00000000 		.word	__Reserved_0x34_Handler
+ 101 0038 00000000 		.word	PendSV_Handler
+ 102 003c 00000000 		.word	SysTick_Handler
+ 103 0040 00000000 		.word	WWDG_IRQHandler
+ 104 0044 00000000 		.word	PVD_IRQHandler
+ 105 0048 00000000 		.word	TAMPER_IRQHandler
+ 106 004c 00000000 		.word	RTC_IRQHandler
+ 107 0050 00000000 		.word	FLASH_IRQHandler
+ 108 0054 00000000 		.word	RCC_IRQHandler
+ 109 0058 00000000 		.word	EXTI0_IRQHandler
+ 110 005c 00000000 		.word	EXTI1_IRQHandler
+ 111 0060 00000000 		.word	EXTI2_IRQHandler
+ 112 0064 00000000 		.word	EXTI3_IRQHandler
+ 113 0068 00000000 		.word	EXTI4_IRQHandler
+ 114 006c 00000000 		.word	DMA1_Channel1_IRQHandler
+ 115 0070 00000000 		.word	DMA1_Channel2_IRQHandler
+ 116 0074 00000000 		.word	DMA1_Channel3_IRQHandler
+ 117 0078 00000000 		.word	DMA1_Channel4_IRQHandler
+ 118 007c 00000000 		.word	DMA1_Channel5_IRQHandler
+ 119 0080 00000000 		.word	DMA1_Channel6_IRQHandler
+ 120 0084 00000000 		.word	DMA1_Channel7_IRQHandler
+ 121 0088 00000000 		.word	ADC1_2_IRQHandler
+ 122 008c 00000000 		.word	USB_HP_CAN_TX_IRQHandler
+ 123 0090 00000000 		.word	USB_LP_CAN_RX0_IRQHandler
+ 124 0094 00000000 		.word	CAN_RX1_IRQHandler
+ 125 0098 00000000 		.word	CAN_SCE_IRQHandler
+ 126 009c 00000000 		.word	EXTI9_5_IRQHandler
+ 127 00a0 00000000 		.word	TIM1_BRK_IRQHandler
+ 128 00a4 00000000 		.word	TIM1_UP_IRQHandler
+ 129 00a8 00000000 		.word	TIM1_TRG_COM_IRQHandler
+ 130 00ac 00000000 		.word	TIM1_CC_IRQHandler
+ 131 00b0 00000000 		.word	TIM2_IRQHandler
+ 132 00b4 00000000 		.word	TIM3_IRQHandler
+ 133 00b8 00000000 		.word	TIM4_IRQHandler
+ 134 00bc 00000000 		.word	I2C1_EV_IRQHandler
+ 135 00c0 00000000 		.word	I2C1_ER_IRQHandler
+ 136 00c4 00000000 		.word	I2C2_EV_IRQHandler
+ 137 00c8 00000000 		.word	I2C2_ER_IRQHandler
+ 138 00cc 00000000 		.word	SPI1_IRQHandler
+ 139 00d0 00000000 		.word	SPI2_IRQHandler
+ 140 00d4 00000000 		.word	USART1_IRQHandler
+ 141 00d8 00000000 		.word	USART2_IRQHandler
+ 142 00dc 00000000 		.word	USART3_IRQHandler
+ 143 00e0 00000000 		.word	EXTI15_10_IRQHandler
+ 144 00e4 00000000 		.word	RTCAlarm_IRQHandler
+ 145 00e8 00000000 		.word	USBWakeup_IRQHandler
+ 146 00ec 00000000 		.word	TIM8_BRK_IRQHandler
+ 147 00f0 00000000 		.word	TIM8_UP_IRQHandler
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 4
+
+
+ 148 00f4 00000000 		.word	TIM8_TRG_COM_IRQHandler
+ 149 00f8 00000000 		.word	TIM8_CC_IRQHandler
+ 150 00fc 00000000 		.word	ADC3_IRQHandler
+ 151 0100 00000000 		.word	FSMC_IRQHandler
+ 152 0104 00000000 		.word	SDIO_IRQHandler
+ 153 0108 00000000 		.word	TIM5_IRQHandler
+ 154 010c 00000000 		.word	SPI3_IRQHandler
+ 155 0110 00000000 		.word	UART4_IRQHandler
+ 156 0114 00000000 		.word	UART5_IRQHandler
+ 157 0118 00000000 		.word	TIM6_IRQHandler
+ 158 011c 00000000 		.word	TIM7_IRQHandler
+ 159 0120 00000000 		.word	DMA2_Channel1_IRQHandler
+ 160 0124 00000000 		.word	DMA2_Channel2_IRQHandler
+ 161 0128 00000000 		.word	DMA2_Channel3_IRQHandler
+ 162 012c 00000000 		.word	DMA2_Channel4_5_IRQHandler
+ 163              		.weak	NMI_Handler
+ 164              		.thumb_set NMI_Handler,__Default_Handler
+ 165              		.weak	HardFault_Handler
+ 166              		.thumb_set HardFault_Handler,__Default_Handler
+ 167              		.weak	MemManage_Handler
+ 168              		.thumb_set MemManage_Handler,__Default_Handler
+ 169              		.weak	BusFault_Handler
+ 170              		.thumb_set BusFault_Handler,__Default_Handler
+ 171              		.weak	UsageFault_Handler
+ 172              		.thumb_set UsageFault_Handler,__Default_Handler
+ 173              		.weak	__Reserved_0x1C_Handler
+ 174              		.thumb_set __Reserved_0x1C_Handler,__Default_Handler
+ 175              		.weak	__Reserved_0x20_Handler
+ 176              		.thumb_set __Reserved_0x20_Handler,__Default_Handler
+ 177              		.weak	__Reserved_0x24_Handler
+ 178              		.thumb_set __Reserved_0x24_Handler,__Default_Handler
+ 179              		.weak	__Reserved_0x28_Handler
+ 180              		.thumb_set __Reserved_0x28_Handler,__Default_Handler
+ 181              		.weak	SVC_Handler
+ 182              		.thumb_set SVC_Handler,__Default_Handler
+ 183              		.weak	DebugMon_Handler
+ 184              		.thumb_set DebugMon_Handler,__Default_Handler
+ 185              		.weak	__Reserved_0x34_Handler
+ 186              		.thumb_set __Reserved_0x34_Handler,__Default_Handler
+ 187              		.weak	PendSV_Handler
+ 188              		.thumb_set PendSV_Handler,__Default_Handler
+ 189              		.weak	SysTick_Handler
+ 190              		.thumb_set SysTick_Handler,__Default_Handler
+ 191              		.weak	WWDG_IRQHandler
+ 192              		.thumb_set WWDG_IRQHandler,__Default_Handler
+ 193              		.weak	PVD_IRQHandler
+ 194              		.thumb_set PVD_IRQHandler,__Default_Handler
+ 195              		.weak	TAMPER_IRQHandler
+ 196              		.thumb_set TAMPER_IRQHandler,__Default_Handler
+ 197              		.weak	RTC_IRQHandler
+ 198              		.thumb_set RTC_IRQHandler,__Default_Handler
+ 199              		.weak	FLASH_IRQHandler
+ 200              		.thumb_set FLASH_IRQHandler,__Default_Handler
+ 201              		.weak	RCC_IRQHandler
+ 202              		.thumb_set RCC_IRQHandler,__Default_Handler
+ 203              		.weak	EXTI0_IRQHandler
+ 204              		.thumb_set EXTI0_IRQHandler,__Default_Handler
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 5
+
+
+ 205              		.weak	EXTI1_IRQHandler
+ 206              		.thumb_set EXTI1_IRQHandler,__Default_Handler
+ 207              		.weak	EXTI2_IRQHandler
+ 208              		.thumb_set EXTI2_IRQHandler,__Default_Handler
+ 209              		.weak	EXTI3_IRQHandler
+ 210              		.thumb_set EXTI3_IRQHandler,__Default_Handler
+ 211              		.weak	EXTI4_IRQHandler
+ 212              		.thumb_set EXTI4_IRQHandler,__Default_Handler
+ 213              		.weak	DMA1_Channel1_IRQHandler
+ 214              		.thumb_set DMA1_Channel1_IRQHandler,__Default_Handler
+ 215              		.weak	DMA1_Channel2_IRQHandler
+ 216              		.thumb_set DMA1_Channel2_IRQHandler,__Default_Handler
+ 217              		.weak	DMA1_Channel3_IRQHandler
+ 218              		.thumb_set DMA1_Channel3_IRQHandler,__Default_Handler
+ 219              		.weak	DMA1_Channel4_IRQHandler
+ 220              		.thumb_set DMA1_Channel4_IRQHandler,__Default_Handler
+ 221              		.weak	DMA1_Channel5_IRQHandler
+ 222              		.thumb_set DMA1_Channel5_IRQHandler,__Default_Handler
+ 223              		.weak	DMA1_Channel6_IRQHandler
+ 224              		.thumb_set DMA1_Channel6_IRQHandler,__Default_Handler
+ 225              		.weak	DMA1_Channel7_IRQHandler
+ 226              		.thumb_set DMA1_Channel7_IRQHandler,__Default_Handler
+ 227              		.weak	ADC1_2_IRQHandler
+ 228              		.thumb_set ADC1_2_IRQHandler,__Default_Handler
+ 229              		.weak	USB_HP_CAN_TX_IRQHandler
+ 230              		.thumb_set USB_HP_CAN_TX_IRQHandler,__Default_Handler
+ 231              		.weak	USB_LP_CAN_RX0_IRQHandler
+ 232              		.thumb_set USB_LP_CAN_RX0_IRQHandler,__Default_Handler
+ 233              		.weak	CAN_RX1_IRQHandler
+ 234              		.thumb_set CAN_RX1_IRQHandler,__Default_Handler
+ 235              		.weak	CAN_SCE_IRQHandler
+ 236              		.thumb_set CAN_SCE_IRQHandler,__Default_Handler
+ 237              		.weak	EXTI9_5_IRQHandler
+ 238              		.thumb_set EXTI9_5_IRQHandler,__Default_Handler
+ 239              		.weak	TIM1_BRK_IRQHandler
+ 240              		.thumb_set TIM1_BRK_IRQHandler,__Default_Handler
+ 241              		.weak	TIM1_UP_IRQHandler
+ 242              		.thumb_set TIM1_UP_IRQHandler,__Default_Handler
+ 243              		.weak	TIM1_TRG_COM_IRQHandler
+ 244              		.thumb_set TIM1_TRG_COM_IRQHandler,__Default_Handler
+ 245              		.weak	TIM1_CC_IRQHandler
+ 246              		.thumb_set TIM1_CC_IRQHandler,__Default_Handler
+ 247              		.weak	TIM2_IRQHandler
+ 248              		.thumb_set TIM2_IRQHandler,__Default_Handler
+ 249              		.weak	TIM3_IRQHandler
+ 250              		.thumb_set TIM3_IRQHandler,__Default_Handler
+ 251              		.weak	TIM4_IRQHandler
+ 252              		.thumb_set TIM4_IRQHandler,__Default_Handler
+ 253              		.weak	I2C1_EV_IRQHandler
+ 254              		.thumb_set I2C1_EV_IRQHandler,__Default_Handler
+ 255              		.weak	I2C1_ER_IRQHandler
+ 256              		.thumb_set I2C1_ER_IRQHandler,__Default_Handler
+ 257              		.weak	I2C2_EV_IRQHandler
+ 258              		.thumb_set I2C2_EV_IRQHandler,__Default_Handler
+ 259              		.weak	I2C2_ER_IRQHandler
+ 260              		.thumb_set I2C2_ER_IRQHandler,__Default_Handler
+ 261              		.weak	SPI1_IRQHandler
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 6
+
+
+ 262              		.thumb_set SPI1_IRQHandler,__Default_Handler
+ 263              		.weak	SPI2_IRQHandler
+ 264              		.thumb_set SPI2_IRQHandler,__Default_Handler
+ 265              		.weak	USART1_IRQHandler
+ 266              		.thumb_set USART1_IRQHandler,__Default_Handler
+ 267              		.weak	USART2_IRQHandler
+ 268              		.thumb_set USART2_IRQHandler,__Default_Handler
+ 269              		.weak	USART3_IRQHandler
+ 270              		.thumb_set USART3_IRQHandler,__Default_Handler
+ 271              		.weak	EXTI15_10_IRQHandler
+ 272              		.thumb_set EXTI15_10_IRQHandler,__Default_Handler
+ 273              		.weak	RTCAlarm_IRQHandler
+ 274              		.thumb_set RTCAlarm_IRQHandler,__Default_Handler
+ 275              		.weak	USBWakeup_IRQHandler
+ 276              		.thumb_set USBWakeup_IRQHandler,__Default_Handler
+ 277              		.weak	TIM8_BRK_IRQHandler
+ 278              		.thumb_set TIM8_BRK_IRQHandler,__Default_Handler
+ 279              		.weak	TIM8_UP_IRQHandler
+ 280              		.thumb_set TIM8_UP_IRQHandler,__Default_Handler
+ 281              		.weak	TIM8_TRG_COM_IRQHandler
+ 282              		.thumb_set TIM8_TRG_COM_IRQHandler,__Default_Handler
+ 283              		.weak	TIM8_CC_IRQHandler
+ 284              		.thumb_set TIM8_CC_IRQHandler,__Default_Handler
+ 285              		.weak	ADC3_IRQHandler
+ 286              		.thumb_set ADC3_IRQHandler,__Default_Handler
+ 287              		.weak	FSMC_IRQHandler
+ 288              		.thumb_set FSMC_IRQHandler,__Default_Handler
+ 289              		.weak	SDIO_IRQHandler
+ 290              		.thumb_set SDIO_IRQHandler,__Default_Handler
+ 291              		.weak	TIM5_IRQHandler
+ 292              		.thumb_set TIM5_IRQHandler,__Default_Handler
+ 293              		.weak	SPI3_IRQHandler
+ 294              		.thumb_set SPI3_IRQHandler,__Default_Handler
+ 295              		.weak	UART4_IRQHandler
+ 296              		.thumb_set UART4_IRQHandler,__Default_Handler
+ 297              		.weak	UART5_IRQHandler
+ 298              		.thumb_set UART5_IRQHandler,__Default_Handler
+ 299              		.weak	TIM6_IRQHandler
+ 300              		.thumb_set TIM6_IRQHandler,__Default_Handler
+ 301              		.weak	TIM7_IRQHandler
+ 302              		.thumb_set TIM7_IRQHandler,__Default_Handler
+ 303              		.weak	DMA2_Channel1_IRQHandler
+ 304              		.thumb_set DMA2_Channel1_IRQHandler,__Default_Handler
+ 305              		.weak	DMA2_Channel2_IRQHandler
+ 306              		.thumb_set DMA2_Channel2_IRQHandler,__Default_Handler
+ 307              		.weak	DMA2_Channel3_IRQHandler
+ 308              		.thumb_set DMA2_Channel3_IRQHandler,__Default_Handler
+ 309              		.weak	DMA2_Channel4_5_IRQHandler
+ 310              		.thumb_set DMA2_Channel4_5_IRQHandler,__Default_Handler
+ 311              		.text
+ 312              	.Letext0:
+ 313              		.section	.debug_info,"",%progbits
+ 314              	.Ldebug_info0:
+ 315 0000 9D000000 		.4byte	0x9d
+ 316 0004 0200     		.2byte	0x2
+ 317 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 318 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 7
+
+
+ 319 000b 01       		.uleb128 0x1
+ 320 000c 63000000 		.4byte	.LASF4
+ 321 0010 01       		.byte	0x1
+ 322 0011 00000000 		.4byte	.LASF5
+ 323 0015 0A000000 		.4byte	.LASF6
+ 324 0019 00000000 		.4byte	0
+ 325 001d 00000000 		.4byte	0
+ 326 0021 00000000 		.4byte	.Ldebug_ranges0+0
+ 327 0025 00000000 		.4byte	.Ldebug_line0
+ 328 0029 00000000 		.4byte	.Ldebug_macinfo0
+ 329 002d 02       		.uleb128 0x2
+ 330 002e 51000000 		.4byte	.LASF7
+ 331 0032 01       		.byte	0x1
+ 332 0033 16       		.byte	0x16
+ 333 0034 01       		.byte	0x1
+ 334 0035 00000000 		.4byte	.LFB0
+ 335 0039 0E000000 		.4byte	.LFE0
+ 336 003d 00000000 		.4byte	.LLST0
+ 337 0041 03       		.uleb128 0x3
+ 338 0042 2B000000 		.4byte	.LASF0
+ 339 0046 01       		.byte	0x1
+ 340 0047 0501     		.2byte	0x105
+ 341 0049 4F000000 		.4byte	0x4f
+ 342 004d 01       		.byte	0x1
+ 343 004e 01       		.byte	0x1
+ 344 004f 04       		.uleb128 0x4
+ 345 0050 54000000 		.4byte	0x54
+ 346 0054 05       		.uleb128 0x5
+ 347 0055 01       		.byte	0x1
+ 348 0056 08       		.byte	0x8
+ 349 0057 AC000000 		.4byte	.LASF1
+ 350 005b 03       		.uleb128 0x3
+ 351 005c 2B000000 		.4byte	.LASF0
+ 352 0060 01       		.byte	0x1
+ 353 0061 0501     		.2byte	0x105
+ 354 0063 4F000000 		.4byte	0x4f
+ 355 0067 01       		.byte	0x1
+ 356 0068 01       		.byte	0x1
+ 357 0069 06       		.uleb128 0x6
+ 358 006a 82000000 		.4byte	0x82
+ 359 006e 79000000 		.4byte	0x79
+ 360 0072 07       		.uleb128 0x7
+ 361 0073 79000000 		.4byte	0x79
+ 362 0077 4B       		.byte	0x4b
+ 363 0078 00       		.byte	0
+ 364 0079 05       		.uleb128 0x5
+ 365 007a 04       		.byte	0x4
+ 366 007b 07       		.byte	0x7
+ 367 007c 44000000 		.4byte	.LASF2
+ 368 0080 08       		.uleb128 0x8
+ 369 0081 01       		.byte	0x1
+ 370 0082 09       		.uleb128 0x9
+ 371 0083 04       		.byte	0x4
+ 372 0084 80000000 		.4byte	0x80
+ 373 0088 0A       		.uleb128 0xa
+ 374 0089 3C000000 		.4byte	.LASF3
+ 375 008d 01       		.byte	0x1
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 8
+
+
+ 376 008e 0901     		.2byte	0x109
+ 377 0090 9B000000 		.4byte	0x9b
+ 378 0094 01       		.byte	0x1
+ 379 0095 05       		.byte	0x5
+ 380 0096 03       		.byte	0x3
+ 381 0097 00000000 		.4byte	vectors
+ 382 009b 04       		.uleb128 0x4
+ 383 009c 69000000 		.4byte	0x69
+ 384 00a0 00       		.byte	0
+ 385              		.section	.debug_abbrev,"",%progbits
+ 386              	.Ldebug_abbrev0:
+ 387 0000 01       		.uleb128 0x1
+ 388 0001 11       		.uleb128 0x11
+ 389 0002 01       		.byte	0x1
+ 390 0003 25       		.uleb128 0x25
+ 391 0004 0E       		.uleb128 0xe
+ 392 0005 13       		.uleb128 0x13
+ 393 0006 0B       		.uleb128 0xb
+ 394 0007 03       		.uleb128 0x3
+ 395 0008 0E       		.uleb128 0xe
+ 396 0009 1B       		.uleb128 0x1b
+ 397 000a 0E       		.uleb128 0xe
+ 398 000b 11       		.uleb128 0x11
+ 399 000c 01       		.uleb128 0x1
+ 400 000d 52       		.uleb128 0x52
+ 401 000e 01       		.uleb128 0x1
+ 402 000f 55       		.uleb128 0x55
+ 403 0010 06       		.uleb128 0x6
+ 404 0011 10       		.uleb128 0x10
+ 405 0012 06       		.uleb128 0x6
+ 406 0013 43       		.uleb128 0x43
+ 407 0014 06       		.uleb128 0x6
+ 408 0015 00       		.byte	0
+ 409 0016 00       		.byte	0
+ 410 0017 02       		.uleb128 0x2
+ 411 0018 2E       		.uleb128 0x2e
+ 412 0019 00       		.byte	0
+ 413 001a 03       		.uleb128 0x3
+ 414 001b 0E       		.uleb128 0xe
+ 415 001c 3A       		.uleb128 0x3a
+ 416 001d 0B       		.uleb128 0xb
+ 417 001e 3B       		.uleb128 0x3b
+ 418 001f 0B       		.uleb128 0xb
+ 419 0020 27       		.uleb128 0x27
+ 420 0021 0C       		.uleb128 0xc
+ 421 0022 11       		.uleb128 0x11
+ 422 0023 01       		.uleb128 0x1
+ 423 0024 12       		.uleb128 0x12
+ 424 0025 01       		.uleb128 0x1
+ 425 0026 40       		.uleb128 0x40
+ 426 0027 06       		.uleb128 0x6
+ 427 0028 00       		.byte	0
+ 428 0029 00       		.byte	0
+ 429 002a 03       		.uleb128 0x3
+ 430 002b 34       		.uleb128 0x34
+ 431 002c 00       		.byte	0
+ 432 002d 03       		.uleb128 0x3
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 9
+
+
+ 433 002e 0E       		.uleb128 0xe
+ 434 002f 3A       		.uleb128 0x3a
+ 435 0030 0B       		.uleb128 0xb
+ 436 0031 3B       		.uleb128 0x3b
+ 437 0032 05       		.uleb128 0x5
+ 438 0033 49       		.uleb128 0x49
+ 439 0034 13       		.uleb128 0x13
+ 440 0035 3F       		.uleb128 0x3f
+ 441 0036 0C       		.uleb128 0xc
+ 442 0037 3C       		.uleb128 0x3c
+ 443 0038 0C       		.uleb128 0xc
+ 444 0039 00       		.byte	0
+ 445 003a 00       		.byte	0
+ 446 003b 04       		.uleb128 0x4
+ 447 003c 26       		.uleb128 0x26
+ 448 003d 00       		.byte	0
+ 449 003e 49       		.uleb128 0x49
+ 450 003f 13       		.uleb128 0x13
+ 451 0040 00       		.byte	0
+ 452 0041 00       		.byte	0
+ 453 0042 05       		.uleb128 0x5
+ 454 0043 24       		.uleb128 0x24
+ 455 0044 00       		.byte	0
+ 456 0045 0B       		.uleb128 0xb
+ 457 0046 0B       		.uleb128 0xb
+ 458 0047 3E       		.uleb128 0x3e
+ 459 0048 0B       		.uleb128 0xb
+ 460 0049 03       		.uleb128 0x3
+ 461 004a 0E       		.uleb128 0xe
+ 462 004b 00       		.byte	0
+ 463 004c 00       		.byte	0
+ 464 004d 06       		.uleb128 0x6
+ 465 004e 01       		.uleb128 0x1
+ 466 004f 01       		.byte	0x1
+ 467 0050 49       		.uleb128 0x49
+ 468 0051 13       		.uleb128 0x13
+ 469 0052 01       		.uleb128 0x1
+ 470 0053 13       		.uleb128 0x13
+ 471 0054 00       		.byte	0
+ 472 0055 00       		.byte	0
+ 473 0056 07       		.uleb128 0x7
+ 474 0057 21       		.uleb128 0x21
+ 475 0058 00       		.byte	0
+ 476 0059 49       		.uleb128 0x49
+ 477 005a 13       		.uleb128 0x13
+ 478 005b 2F       		.uleb128 0x2f
+ 479 005c 0B       		.uleb128 0xb
+ 480 005d 00       		.byte	0
+ 481 005e 00       		.byte	0
+ 482 005f 08       		.uleb128 0x8
+ 483 0060 15       		.uleb128 0x15
+ 484 0061 00       		.byte	0
+ 485 0062 27       		.uleb128 0x27
+ 486 0063 0C       		.uleb128 0xc
+ 487 0064 00       		.byte	0
+ 488 0065 00       		.byte	0
+ 489 0066 09       		.uleb128 0x9
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 10
+
+
+ 490 0067 0F       		.uleb128 0xf
+ 491 0068 00       		.byte	0
+ 492 0069 0B       		.uleb128 0xb
+ 493 006a 0B       		.uleb128 0xb
+ 494 006b 49       		.uleb128 0x49
+ 495 006c 13       		.uleb128 0x13
+ 496 006d 00       		.byte	0
+ 497 006e 00       		.byte	0
+ 498 006f 0A       		.uleb128 0xa
+ 499 0070 34       		.uleb128 0x34
+ 500 0071 00       		.byte	0
+ 501 0072 03       		.uleb128 0x3
+ 502 0073 0E       		.uleb128 0xe
+ 503 0074 3A       		.uleb128 0x3a
+ 504 0075 0B       		.uleb128 0xb
+ 505 0076 3B       		.uleb128 0x3b
+ 506 0077 05       		.uleb128 0x5
+ 507 0078 49       		.uleb128 0x49
+ 508 0079 13       		.uleb128 0x13
+ 509 007a 3F       		.uleb128 0x3f
+ 510 007b 0C       		.uleb128 0xc
+ 511 007c 02       		.uleb128 0x2
+ 512 007d 0A       		.uleb128 0xa
+ 513 007e 00       		.byte	0
+ 514 007f 00       		.byte	0
+ 515 0080 00       		.byte	0
+ 516              		.section	.debug_loc,"",%progbits
+ 517              	.Ldebug_loc0:
+ 518              	.LLST0:
+ 519 0000 00000000 		.4byte	.LFB0
+ 520 0004 0A000000 		.4byte	.LCFI0
+ 521 0008 0200     		.2byte	0x2
+ 522 000a 7D       		.byte	0x7d
+ 523 000b 00       		.sleb128 0
+ 524 000c 0A000000 		.4byte	.LCFI0
+ 525 0010 0C000000 		.4byte	.LCFI1
+ 526 0014 0200     		.2byte	0x2
+ 527 0016 7D       		.byte	0x7d
+ 528 0017 08       		.sleb128 8
+ 529 0018 0C000000 		.4byte	.LCFI1
+ 530 001c 0E000000 		.4byte	.LFE0
+ 531 0020 0200     		.2byte	0x2
+ 532 0022 77       		.byte	0x77
+ 533 0023 08       		.sleb128 8
+ 534 0024 00000000 		.4byte	0
+ 535 0028 00000000 		.4byte	0
+ 536              		.section	.debug_aranges,"",%progbits
+ 537 0000 1C000000 		.4byte	0x1c
+ 538 0004 0200     		.2byte	0x2
+ 539 0006 00000000 		.4byte	.Ldebug_info0
+ 540 000a 04       		.byte	0x4
+ 541 000b 00       		.byte	0
+ 542 000c 0000     		.2byte	0
+ 543 000e 0000     		.2byte	0
+ 544 0010 00000000 		.4byte	.LFB0
+ 545 0014 0E000000 		.4byte	.LFE0-.LFB0
+ 546 0018 00000000 		.4byte	0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 11
+
+
+ 547 001c 00000000 		.4byte	0
+ 548              		.section	.debug_ranges,"",%progbits
+ 549              	.Ldebug_ranges0:
+ 550 0000 00000000 		.4byte	.LFB0
+ 551 0004 0E000000 		.4byte	.LFE0
+ 552 0008 00000000 		.4byte	0
+ 553 000c 00000000 		.4byte	0
+ 554              		.section	.debug_line,"",%progbits
+ 555              	.Ldebug_line0:
+ 556 0000 3A000000 		.section	.debug_macinfo,"",%progbits
+ 556      02002000 
+ 556      00000201 
+ 556      FB0E0D00 
+ 556      01010101 
+ 557              	.Ldebug_macinfo0:
+ 558 0000 01       		.byte	0x1
+ 559 0001 00       		.uleb128 0
+ 560 0002 5F5F5354 		.ascii	"__STDC__ 1\000"
+ 560      44435F5F 
+ 560      203100
+ 561 000d 01       		.byte	0x1
+ 562 000e 00       		.uleb128 0
+ 563 000f 5F5F5354 		.ascii	"__STDC_HOSTED__ 1\000"
+ 563      44435F48 
+ 563      4F535445 
+ 563      445F5F20 
+ 563      3100
+ 564 0021 01       		.byte	0x1
+ 565 0022 00       		.uleb128 0
+ 566 0023 5F5F474E 		.ascii	"__GNUC__ 4\000"
+ 566      55435F5F 
+ 566      203400
+ 567 002e 01       		.byte	0x1
+ 568 002f 00       		.uleb128 0
+ 569 0030 5F5F474E 		.ascii	"__GNUC_MINOR__ 6\000"
+ 569      55435F4D 
+ 569      494E4F52 
+ 569      5F5F2036 
+ 569      00
+ 570 0041 01       		.byte	0x1
+ 571 0042 00       		.uleb128 0
+ 572 0043 5F5F474E 		.ascii	"__GNUC_PATCHLEVEL__ 2\000"
+ 572      55435F50 
+ 572      41544348 
+ 572      4C455645 
+ 572      4C5F5F20 
+ 573 0059 01       		.byte	0x1
+ 574 005a 00       		.uleb128 0
+ 575 005b 5F5F5645 		.ascii	"__VERSION__ \"4.6.2 20120613 (release) [ARM/embedde"
+ 575      5253494F 
+ 575      4E5F5F20 
+ 575      22342E36 
+ 575      2E322032 
+ 576 008d 642D345F 		.ascii	"d-4_6-branch revision 188521]\"\000"
+ 576      362D6272 
+ 576      616E6368 
+ 576      20726576 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 12
+
+
+ 576      6973696F 
+ 577 00ac 01       		.byte	0x1
+ 578 00ad 00       		.uleb128 0
+ 579 00ae 5F5F4649 		.ascii	"__FINITE_MATH_ONLY__ 0\000"
+ 579      4E495445 
+ 579      5F4D4154 
+ 579      485F4F4E 
+ 579      4C595F5F 
+ 580 00c5 01       		.byte	0x1
+ 581 00c6 00       		.uleb128 0
+ 582 00c7 5F5F5349 		.ascii	"__SIZEOF_INT__ 4\000"
+ 582      5A454F46 
+ 582      5F494E54 
+ 582      5F5F2034 
+ 582      00
+ 583 00d8 01       		.byte	0x1
+ 584 00d9 00       		.uleb128 0
+ 585 00da 5F5F5349 		.ascii	"__SIZEOF_LONG__ 4\000"
+ 585      5A454F46 
+ 585      5F4C4F4E 
+ 585      475F5F20 
+ 585      3400
+ 586 00ec 01       		.byte	0x1
+ 587 00ed 00       		.uleb128 0
+ 588 00ee 5F5F5349 		.ascii	"__SIZEOF_LONG_LONG__ 8\000"
+ 588      5A454F46 
+ 588      5F4C4F4E 
+ 588      475F4C4F 
+ 588      4E475F5F 
+ 589 0105 01       		.byte	0x1
+ 590 0106 00       		.uleb128 0
+ 591 0107 5F5F5349 		.ascii	"__SIZEOF_SHORT__ 2\000"
+ 591      5A454F46 
+ 591      5F53484F 
+ 591      52545F5F 
+ 591      203200
+ 592 011a 01       		.byte	0x1
+ 593 011b 00       		.uleb128 0
+ 594 011c 5F5F5349 		.ascii	"__SIZEOF_FLOAT__ 4\000"
+ 594      5A454F46 
+ 594      5F464C4F 
+ 594      41545F5F 
+ 594      203400
+ 595 012f 01       		.byte	0x1
+ 596 0130 00       		.uleb128 0
+ 597 0131 5F5F5349 		.ascii	"__SIZEOF_DOUBLE__ 8\000"
+ 597      5A454F46 
+ 597      5F444F55 
+ 597      424C455F 
+ 597      5F203800 
+ 598 0145 01       		.byte	0x1
+ 599 0146 00       		.uleb128 0
+ 600 0147 5F5F5349 		.ascii	"__SIZEOF_LONG_DOUBLE__ 8\000"
+ 600      5A454F46 
+ 600      5F4C4F4E 
+ 600      475F444F 
+ 600      55424C45 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 13
+
+
+ 601 0160 01       		.byte	0x1
+ 602 0161 00       		.uleb128 0
+ 603 0162 5F5F5349 		.ascii	"__SIZEOF_SIZE_T__ 4\000"
+ 603      5A454F46 
+ 603      5F53495A 
+ 603      455F545F 
+ 603      5F203400 
+ 604 0176 01       		.byte	0x1
+ 605 0177 00       		.uleb128 0
+ 606 0178 5F5F4348 		.ascii	"__CHAR_BIT__ 8\000"
+ 606      41525F42 
+ 606      49545F5F 
+ 606      203800
+ 607 0187 01       		.byte	0x1
+ 608 0188 00       		.uleb128 0
+ 609 0189 5F5F4249 		.ascii	"__BIGGEST_ALIGNMENT__ 8\000"
+ 609      47474553 
+ 609      545F414C 
+ 609      49474E4D 
+ 609      454E545F 
+ 610 01a1 01       		.byte	0x1
+ 611 01a2 00       		.uleb128 0
+ 612 01a3 5F5F4F52 		.ascii	"__ORDER_LITTLE_ENDIAN__ 1234\000"
+ 612      4445525F 
+ 612      4C495454 
+ 612      4C455F45 
+ 612      4E444941 
+ 613 01c0 01       		.byte	0x1
+ 614 01c1 00       		.uleb128 0
+ 615 01c2 5F5F4F52 		.ascii	"__ORDER_BIG_ENDIAN__ 4321\000"
+ 615      4445525F 
+ 615      4249475F 
+ 615      454E4449 
+ 615      414E5F5F 
+ 616 01dc 01       		.byte	0x1
+ 617 01dd 00       		.uleb128 0
+ 618 01de 5F5F4F52 		.ascii	"__ORDER_PDP_ENDIAN__ 3412\000"
+ 618      4445525F 
+ 618      5044505F 
+ 618      454E4449 
+ 618      414E5F5F 
+ 619 01f8 01       		.byte	0x1
+ 620 01f9 00       		.uleb128 0
+ 621 01fa 5F5F4259 		.ascii	"__BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__\000"
+ 621      54455F4F 
+ 621      52444552 
+ 621      5F5F205F 
+ 621      5F4F5244 
+ 622 0221 01       		.byte	0x1
+ 623 0222 00       		.uleb128 0
+ 624 0223 5F5F464C 		.ascii	"__FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__\000"
+ 624      4F41545F 
+ 624      574F5244 
+ 624      5F4F5244 
+ 624      45525F5F 
+ 625 0250 01       		.byte	0x1
+ 626 0251 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 14
+
+
+ 627 0252 5F5F5349 		.ascii	"__SIZEOF_POINTER__ 4\000"
+ 627      5A454F46 
+ 627      5F504F49 
+ 627      4E544552 
+ 627      5F5F2034 
+ 628 0267 01       		.byte	0x1
+ 629 0268 00       		.uleb128 0
+ 630 0269 5F5F5349 		.ascii	"__SIZE_TYPE__ unsigned int\000"
+ 630      5A455F54 
+ 630      5950455F 
+ 630      5F20756E 
+ 630      7369676E 
+ 631 0284 01       		.byte	0x1
+ 632 0285 00       		.uleb128 0
+ 633 0286 5F5F5054 		.ascii	"__PTRDIFF_TYPE__ int\000"
+ 633      52444946 
+ 633      465F5459 
+ 633      50455F5F 
+ 633      20696E74 
+ 634 029b 01       		.byte	0x1
+ 635 029c 00       		.uleb128 0
+ 636 029d 5F5F5743 		.ascii	"__WCHAR_TYPE__ unsigned int\000"
+ 636      4841525F 
+ 636      54595045 
+ 636      5F5F2075 
+ 636      6E736967 
+ 637 02b9 01       		.byte	0x1
+ 638 02ba 00       		.uleb128 0
+ 639 02bb 5F5F5749 		.ascii	"__WINT_TYPE__ unsigned int\000"
+ 639      4E545F54 
+ 639      5950455F 
+ 639      5F20756E 
+ 639      7369676E 
+ 640 02d6 01       		.byte	0x1
+ 641 02d7 00       		.uleb128 0
+ 642 02d8 5F5F494E 		.ascii	"__INTMAX_TYPE__ long long int\000"
+ 642      544D4158 
+ 642      5F545950 
+ 642      455F5F20 
+ 642      6C6F6E67 
+ 643 02f6 01       		.byte	0x1
+ 644 02f7 00       		.uleb128 0
+ 645 02f8 5F5F5549 		.ascii	"__UINTMAX_TYPE__ long long unsigned int\000"
+ 645      4E544D41 
+ 645      585F5459 
+ 645      50455F5F 
+ 645      206C6F6E 
+ 646 0320 01       		.byte	0x1
+ 647 0321 00       		.uleb128 0
+ 648 0322 5F5F4348 		.ascii	"__CHAR16_TYPE__ short unsigned int\000"
+ 648      41523136 
+ 648      5F545950 
+ 648      455F5F20 
+ 648      73686F72 
+ 649 0345 01       		.byte	0x1
+ 650 0346 00       		.uleb128 0
+ 651 0347 5F5F4348 		.ascii	"__CHAR32_TYPE__ long unsigned int\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 15
+
+
+ 651      41523332 
+ 651      5F545950 
+ 651      455F5F20 
+ 651      6C6F6E67 
+ 652 0369 01       		.byte	0x1
+ 653 036a 00       		.uleb128 0
+ 654 036b 5F5F5349 		.ascii	"__SIG_ATOMIC_TYPE__ int\000"
+ 654      475F4154 
+ 654      4F4D4943 
+ 654      5F545950 
+ 654      455F5F20 
+ 655 0383 01       		.byte	0x1
+ 656 0384 00       		.uleb128 0
+ 657 0385 5F5F494E 		.ascii	"__INT8_TYPE__ signed char\000"
+ 657      54385F54 
+ 657      5950455F 
+ 657      5F207369 
+ 657      676E6564 
+ 658 039f 01       		.byte	0x1
+ 659 03a0 00       		.uleb128 0
+ 660 03a1 5F5F494E 		.ascii	"__INT16_TYPE__ short int\000"
+ 660      5431365F 
+ 660      54595045 
+ 660      5F5F2073 
+ 660      686F7274 
+ 661 03ba 01       		.byte	0x1
+ 662 03bb 00       		.uleb128 0
+ 663 03bc 5F5F494E 		.ascii	"__INT32_TYPE__ long int\000"
+ 663      5433325F 
+ 663      54595045 
+ 663      5F5F206C 
+ 663      6F6E6720 
+ 664 03d4 01       		.byte	0x1
+ 665 03d5 00       		.uleb128 0
+ 666 03d6 5F5F494E 		.ascii	"__INT64_TYPE__ long long int\000"
+ 666      5436345F 
+ 666      54595045 
+ 666      5F5F206C 
+ 666      6F6E6720 
+ 667 03f3 01       		.byte	0x1
+ 668 03f4 00       		.uleb128 0
+ 669 03f5 5F5F5549 		.ascii	"__UINT8_TYPE__ unsigned char\000"
+ 669      4E54385F 
+ 669      54595045 
+ 669      5F5F2075 
+ 669      6E736967 
+ 670 0412 01       		.byte	0x1
+ 671 0413 00       		.uleb128 0
+ 672 0414 5F5F5549 		.ascii	"__UINT16_TYPE__ short unsigned int\000"
+ 672      4E543136 
+ 672      5F545950 
+ 672      455F5F20 
+ 672      73686F72 
+ 673 0437 01       		.byte	0x1
+ 674 0438 00       		.uleb128 0
+ 675 0439 5F5F5549 		.ascii	"__UINT32_TYPE__ long unsigned int\000"
+ 675      4E543332 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 16
+
+
+ 675      5F545950 
+ 675      455F5F20 
+ 675      6C6F6E67 
+ 676 045b 01       		.byte	0x1
+ 677 045c 00       		.uleb128 0
+ 678 045d 5F5F5549 		.ascii	"__UINT64_TYPE__ long long unsigned int\000"
+ 678      4E543634 
+ 678      5F545950 
+ 678      455F5F20 
+ 678      6C6F6E67 
+ 679 0484 01       		.byte	0x1
+ 680 0485 00       		.uleb128 0
+ 681 0486 5F5F494E 		.ascii	"__INT_LEAST8_TYPE__ signed char\000"
+ 681      545F4C45 
+ 681      41535438 
+ 681      5F545950 
+ 681      455F5F20 
+ 682 04a6 01       		.byte	0x1
+ 683 04a7 00       		.uleb128 0
+ 684 04a8 5F5F494E 		.ascii	"__INT_LEAST16_TYPE__ short int\000"
+ 684      545F4C45 
+ 684      41535431 
+ 684      365F5459 
+ 684      50455F5F 
+ 685 04c7 01       		.byte	0x1
+ 686 04c8 00       		.uleb128 0
+ 687 04c9 5F5F494E 		.ascii	"__INT_LEAST32_TYPE__ long int\000"
+ 687      545F4C45 
+ 687      41535433 
+ 687      325F5459 
+ 687      50455F5F 
+ 688 04e7 01       		.byte	0x1
+ 689 04e8 00       		.uleb128 0
+ 690 04e9 5F5F494E 		.ascii	"__INT_LEAST64_TYPE__ long long int\000"
+ 690      545F4C45 
+ 690      41535436 
+ 690      345F5459 
+ 690      50455F5F 
+ 691 050c 01       		.byte	0x1
+ 692 050d 00       		.uleb128 0
+ 693 050e 5F5F5549 		.ascii	"__UINT_LEAST8_TYPE__ unsigned char\000"
+ 693      4E545F4C 
+ 693      45415354 
+ 693      385F5459 
+ 693      50455F5F 
+ 694 0531 01       		.byte	0x1
+ 695 0532 00       		.uleb128 0
+ 696 0533 5F5F5549 		.ascii	"__UINT_LEAST16_TYPE__ short unsigned int\000"
+ 696      4E545F4C 
+ 696      45415354 
+ 696      31365F54 
+ 696      5950455F 
+ 697 055c 01       		.byte	0x1
+ 698 055d 00       		.uleb128 0
+ 699 055e 5F5F5549 		.ascii	"__UINT_LEAST32_TYPE__ long unsigned int\000"
+ 699      4E545F4C 
+ 699      45415354 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 17
+
+
+ 699      33325F54 
+ 699      5950455F 
+ 700 0586 01       		.byte	0x1
+ 701 0587 00       		.uleb128 0
+ 702 0588 5F5F5549 		.ascii	"__UINT_LEAST64_TYPE__ long long unsigned int\000"
+ 702      4E545F4C 
+ 702      45415354 
+ 702      36345F54 
+ 702      5950455F 
+ 703 05b5 01       		.byte	0x1
+ 704 05b6 00       		.uleb128 0
+ 705 05b7 5F5F494E 		.ascii	"__INT_FAST8_TYPE__ int\000"
+ 705      545F4641 
+ 705      5354385F 
+ 705      54595045 
+ 705      5F5F2069 
+ 706 05ce 01       		.byte	0x1
+ 707 05cf 00       		.uleb128 0
+ 708 05d0 5F5F494E 		.ascii	"__INT_FAST16_TYPE__ int\000"
+ 708      545F4641 
+ 708      53543136 
+ 708      5F545950 
+ 708      455F5F20 
+ 709 05e8 01       		.byte	0x1
+ 710 05e9 00       		.uleb128 0
+ 711 05ea 5F5F494E 		.ascii	"__INT_FAST32_TYPE__ int\000"
+ 711      545F4641 
+ 711      53543332 
+ 711      5F545950 
+ 711      455F5F20 
+ 712 0602 01       		.byte	0x1
+ 713 0603 00       		.uleb128 0
+ 714 0604 5F5F494E 		.ascii	"__INT_FAST64_TYPE__ long long int\000"
+ 714      545F4641 
+ 714      53543634 
+ 714      5F545950 
+ 714      455F5F20 
+ 715 0626 01       		.byte	0x1
+ 716 0627 00       		.uleb128 0
+ 717 0628 5F5F5549 		.ascii	"__UINT_FAST8_TYPE__ unsigned int\000"
+ 717      4E545F46 
+ 717      41535438 
+ 717      5F545950 
+ 717      455F5F20 
+ 718 0649 01       		.byte	0x1
+ 719 064a 00       		.uleb128 0
+ 720 064b 5F5F5549 		.ascii	"__UINT_FAST16_TYPE__ unsigned int\000"
+ 720      4E545F46 
+ 720      41535431 
+ 720      365F5459 
+ 720      50455F5F 
+ 721 066d 01       		.byte	0x1
+ 722 066e 00       		.uleb128 0
+ 723 066f 5F5F5549 		.ascii	"__UINT_FAST32_TYPE__ unsigned int\000"
+ 723      4E545F46 
+ 723      41535433 
+ 723      325F5459 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 18
+
+
+ 723      50455F5F 
+ 724 0691 01       		.byte	0x1
+ 725 0692 00       		.uleb128 0
+ 726 0693 5F5F5549 		.ascii	"__UINT_FAST64_TYPE__ long long unsigned int\000"
+ 726      4E545F46 
+ 726      41535436 
+ 726      345F5459 
+ 726      50455F5F 
+ 727 06bf 01       		.byte	0x1
+ 728 06c0 00       		.uleb128 0
+ 729 06c1 5F5F494E 		.ascii	"__INTPTR_TYPE__ int\000"
+ 729      54505452 
+ 729      5F545950 
+ 729      455F5F20 
+ 729      696E7400 
+ 730 06d5 01       		.byte	0x1
+ 731 06d6 00       		.uleb128 0
+ 732 06d7 5F5F5549 		.ascii	"__UINTPTR_TYPE__ unsigned int\000"
+ 732      4E545054 
+ 732      525F5459 
+ 732      50455F5F 
+ 732      20756E73 
+ 733 06f5 01       		.byte	0x1
+ 734 06f6 00       		.uleb128 0
+ 735 06f7 5F5F4758 		.ascii	"__GXX_ABI_VERSION 1002\000"
+ 735      585F4142 
+ 735      495F5645 
+ 735      5253494F 
+ 735      4E203130 
+ 736 070e 01       		.byte	0x1
+ 737 070f 00       		.uleb128 0
+ 738 0710 5F5F5343 		.ascii	"__SCHAR_MAX__ 127\000"
+ 738      4841525F 
+ 738      4D41585F 
+ 738      5F203132 
+ 738      3700
+ 739 0722 01       		.byte	0x1
+ 740 0723 00       		.uleb128 0
+ 741 0724 5F5F5348 		.ascii	"__SHRT_MAX__ 32767\000"
+ 741      52545F4D 
+ 741      41585F5F 
+ 741      20333237 
+ 741      363700
+ 742 0737 01       		.byte	0x1
+ 743 0738 00       		.uleb128 0
+ 744 0739 5F5F494E 		.ascii	"__INT_MAX__ 2147483647\000"
+ 744      545F4D41 
+ 744      585F5F20 
+ 744      32313437 
+ 744      34383336 
+ 745 0750 01       		.byte	0x1
+ 746 0751 00       		.uleb128 0
+ 747 0752 5F5F4C4F 		.ascii	"__LONG_MAX__ 2147483647L\000"
+ 747      4E475F4D 
+ 747      41585F5F 
+ 747      20323134 
+ 747      37343833 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 19
+
+
+ 748 076b 01       		.byte	0x1
+ 749 076c 00       		.uleb128 0
+ 750 076d 5F5F4C4F 		.ascii	"__LONG_LONG_MAX__ 9223372036854775807LL\000"
+ 750      4E475F4C 
+ 750      4F4E475F 
+ 750      4D41585F 
+ 750      5F203932 
+ 751 0795 01       		.byte	0x1
+ 752 0796 00       		.uleb128 0
+ 753 0797 5F5F5743 		.ascii	"__WCHAR_MAX__ 4294967295U\000"
+ 753      4841525F 
+ 753      4D41585F 
+ 753      5F203432 
+ 753      39343936 
+ 754 07b1 01       		.byte	0x1
+ 755 07b2 00       		.uleb128 0
+ 756 07b3 5F5F5743 		.ascii	"__WCHAR_MIN__ 0U\000"
+ 756      4841525F 
+ 756      4D494E5F 
+ 756      5F203055 
+ 756      00
+ 757 07c4 01       		.byte	0x1
+ 758 07c5 00       		.uleb128 0
+ 759 07c6 5F5F5749 		.ascii	"__WINT_MAX__ 4294967295U\000"
+ 759      4E545F4D 
+ 759      41585F5F 
+ 759      20343239 
+ 759      34393637 
+ 760 07df 01       		.byte	0x1
+ 761 07e0 00       		.uleb128 0
+ 762 07e1 5F5F5749 		.ascii	"__WINT_MIN__ 0U\000"
+ 762      4E545F4D 
+ 762      494E5F5F 
+ 762      20305500 
+ 763 07f1 01       		.byte	0x1
+ 764 07f2 00       		.uleb128 0
+ 765 07f3 5F5F5054 		.ascii	"__PTRDIFF_MAX__ 2147483647\000"
+ 765      52444946 
+ 765      465F4D41 
+ 765      585F5F20 
+ 765      32313437 
+ 766 080e 01       		.byte	0x1
+ 767 080f 00       		.uleb128 0
+ 768 0810 5F5F5349 		.ascii	"__SIZE_MAX__ 4294967295U\000"
+ 768      5A455F4D 
+ 768      41585F5F 
+ 768      20343239 
+ 768      34393637 
+ 769 0829 01       		.byte	0x1
+ 770 082a 00       		.uleb128 0
+ 771 082b 5F5F494E 		.ascii	"__INTMAX_MAX__ 9223372036854775807LL\000"
+ 771      544D4158 
+ 771      5F4D4158 
+ 771      5F5F2039 
+ 771      32323333 
+ 772 0850 01       		.byte	0x1
+ 773 0851 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 20
+
+
+ 774 0852 5F5F494E 		.ascii	"__INTMAX_C(c) c ## LL\000"
+ 774      544D4158 
+ 774      5F432863 
+ 774      29206320 
+ 774      2323204C 
+ 775 0868 01       		.byte	0x1
+ 776 0869 00       		.uleb128 0
+ 777 086a 5F5F5549 		.ascii	"__UINTMAX_MAX__ 18446744073709551615ULL\000"
+ 777      4E544D41 
+ 777      585F4D41 
+ 777      585F5F20 
+ 777      31383434 
+ 778 0892 01       		.byte	0x1
+ 779 0893 00       		.uleb128 0
+ 780 0894 5F5F5549 		.ascii	"__UINTMAX_C(c) c ## ULL\000"
+ 780      4E544D41 
+ 780      585F4328 
+ 780      63292063 
+ 780      20232320 
+ 781 08ac 01       		.byte	0x1
+ 782 08ad 00       		.uleb128 0
+ 783 08ae 5F5F5349 		.ascii	"__SIG_ATOMIC_MAX__ 2147483647\000"
+ 783      475F4154 
+ 783      4F4D4943 
+ 783      5F4D4158 
+ 783      5F5F2032 
+ 784 08cc 01       		.byte	0x1
+ 785 08cd 00       		.uleb128 0
+ 786 08ce 5F5F5349 		.ascii	"__SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)\000"
+ 786      475F4154 
+ 786      4F4D4943 
+ 786      5F4D494E 
+ 786      5F5F2028 
+ 787 08fb 01       		.byte	0x1
+ 788 08fc 00       		.uleb128 0
+ 789 08fd 5F5F494E 		.ascii	"__INT8_MAX__ 127\000"
+ 789      54385F4D 
+ 789      41585F5F 
+ 789      20313237 
+ 789      00
+ 790 090e 01       		.byte	0x1
+ 791 090f 00       		.uleb128 0
+ 792 0910 5F5F494E 		.ascii	"__INT16_MAX__ 32767\000"
+ 792      5431365F 
+ 792      4D41585F 
+ 792      5F203332 
+ 792      37363700 
+ 793 0924 01       		.byte	0x1
+ 794 0925 00       		.uleb128 0
+ 795 0926 5F5F494E 		.ascii	"__INT32_MAX__ 2147483647L\000"
+ 795      5433325F 
+ 795      4D41585F 
+ 795      5F203231 
+ 795      34373438 
+ 796 0940 01       		.byte	0x1
+ 797 0941 00       		.uleb128 0
+ 798 0942 5F5F494E 		.ascii	"__INT64_MAX__ 9223372036854775807LL\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 21
+
+
+ 798      5436345F 
+ 798      4D41585F 
+ 798      5F203932 
+ 798      32333337 
+ 799 0966 01       		.byte	0x1
+ 800 0967 00       		.uleb128 0
+ 801 0968 5F5F5549 		.ascii	"__UINT8_MAX__ 255\000"
+ 801      4E54385F 
+ 801      4D41585F 
+ 801      5F203235 
+ 801      3500
+ 802 097a 01       		.byte	0x1
+ 803 097b 00       		.uleb128 0
+ 804 097c 5F5F5549 		.ascii	"__UINT16_MAX__ 65535\000"
+ 804      4E543136 
+ 804      5F4D4158 
+ 804      5F5F2036 
+ 804      35353335 
+ 805 0991 01       		.byte	0x1
+ 806 0992 00       		.uleb128 0
+ 807 0993 5F5F5549 		.ascii	"__UINT32_MAX__ 4294967295UL\000"
+ 807      4E543332 
+ 807      5F4D4158 
+ 807      5F5F2034 
+ 807      32393439 
+ 808 09af 01       		.byte	0x1
+ 809 09b0 00       		.uleb128 0
+ 810 09b1 5F5F5549 		.ascii	"__UINT64_MAX__ 18446744073709551615ULL\000"
+ 810      4E543634 
+ 810      5F4D4158 
+ 810      5F5F2031 
+ 810      38343436 
+ 811 09d8 01       		.byte	0x1
+ 812 09d9 00       		.uleb128 0
+ 813 09da 5F5F494E 		.ascii	"__INT_LEAST8_MAX__ 127\000"
+ 813      545F4C45 
+ 813      41535438 
+ 813      5F4D4158 
+ 813      5F5F2031 
+ 814 09f1 01       		.byte	0x1
+ 815 09f2 00       		.uleb128 0
+ 816 09f3 5F5F494E 		.ascii	"__INT8_C(c) c\000"
+ 816      54385F43 
+ 816      28632920 
+ 816      6300
+ 817 0a01 01       		.byte	0x1
+ 818 0a02 00       		.uleb128 0
+ 819 0a03 5F5F494E 		.ascii	"__INT_LEAST16_MAX__ 32767\000"
+ 819      545F4C45 
+ 819      41535431 
+ 819      365F4D41 
+ 819      585F5F20 
+ 820 0a1d 01       		.byte	0x1
+ 821 0a1e 00       		.uleb128 0
+ 822 0a1f 5F5F494E 		.ascii	"__INT16_C(c) c\000"
+ 822      5431365F 
+ 822      43286329 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 22
+
+
+ 822      206300
+ 823 0a2e 01       		.byte	0x1
+ 824 0a2f 00       		.uleb128 0
+ 825 0a30 5F5F494E 		.ascii	"__INT_LEAST32_MAX__ 2147483647L\000"
+ 825      545F4C45 
+ 825      41535433 
+ 825      325F4D41 
+ 825      585F5F20 
+ 826 0a50 01       		.byte	0x1
+ 827 0a51 00       		.uleb128 0
+ 828 0a52 5F5F494E 		.ascii	"__INT32_C(c) c ## L\000"
+ 828      5433325F 
+ 828      43286329 
+ 828      20632023 
+ 828      23204C00 
+ 829 0a66 01       		.byte	0x1
+ 830 0a67 00       		.uleb128 0
+ 831 0a68 5F5F494E 		.ascii	"__INT_LEAST64_MAX__ 9223372036854775807LL\000"
+ 831      545F4C45 
+ 831      41535436 
+ 831      345F4D41 
+ 831      585F5F20 
+ 832 0a92 01       		.byte	0x1
+ 833 0a93 00       		.uleb128 0
+ 834 0a94 5F5F494E 		.ascii	"__INT64_C(c) c ## LL\000"
+ 834      5436345F 
+ 834      43286329 
+ 834      20632023 
+ 834      23204C4C 
+ 835 0aa9 01       		.byte	0x1
+ 836 0aaa 00       		.uleb128 0
+ 837 0aab 5F5F5549 		.ascii	"__UINT_LEAST8_MAX__ 255\000"
+ 837      4E545F4C 
+ 837      45415354 
+ 837      385F4D41 
+ 837      585F5F20 
+ 838 0ac3 01       		.byte	0x1
+ 839 0ac4 00       		.uleb128 0
+ 840 0ac5 5F5F5549 		.ascii	"__UINT8_C(c) c\000"
+ 840      4E54385F 
+ 840      43286329 
+ 840      206300
+ 841 0ad4 01       		.byte	0x1
+ 842 0ad5 00       		.uleb128 0
+ 843 0ad6 5F5F5549 		.ascii	"__UINT_LEAST16_MAX__ 65535\000"
+ 843      4E545F4C 
+ 843      45415354 
+ 843      31365F4D 
+ 843      41585F5F 
+ 844 0af1 01       		.byte	0x1
+ 845 0af2 00       		.uleb128 0
+ 846 0af3 5F5F5549 		.ascii	"__UINT16_C(c) c\000"
+ 846      4E543136 
+ 846      5F432863 
+ 846      29206300 
+ 847 0b03 01       		.byte	0x1
+ 848 0b04 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 23
+
+
+ 849 0b05 5F5F5549 		.ascii	"__UINT_LEAST32_MAX__ 4294967295UL\000"
+ 849      4E545F4C 
+ 849      45415354 
+ 849      33325F4D 
+ 849      41585F5F 
+ 850 0b27 01       		.byte	0x1
+ 851 0b28 00       		.uleb128 0
+ 852 0b29 5F5F5549 		.ascii	"__UINT32_C(c) c ## UL\000"
+ 852      4E543332 
+ 852      5F432863 
+ 852      29206320 
+ 852      23232055 
+ 853 0b3f 01       		.byte	0x1
+ 854 0b40 00       		.uleb128 0
+ 855 0b41 5F5F5549 		.ascii	"__UINT_LEAST64_MAX__ 18446744073709551615ULL\000"
+ 855      4E545F4C 
+ 855      45415354 
+ 855      36345F4D 
+ 855      41585F5F 
+ 856 0b6e 01       		.byte	0x1
+ 857 0b6f 00       		.uleb128 0
+ 858 0b70 5F5F5549 		.ascii	"__UINT64_C(c) c ## ULL\000"
+ 858      4E543634 
+ 858      5F432863 
+ 858      29206320 
+ 858      23232055 
+ 859 0b87 01       		.byte	0x1
+ 860 0b88 00       		.uleb128 0
+ 861 0b89 5F5F494E 		.ascii	"__INT_FAST8_MAX__ 2147483647\000"
+ 861      545F4641 
+ 861      5354385F 
+ 861      4D41585F 
+ 861      5F203231 
+ 862 0ba6 01       		.byte	0x1
+ 863 0ba7 00       		.uleb128 0
+ 864 0ba8 5F5F494E 		.ascii	"__INT_FAST16_MAX__ 2147483647\000"
+ 864      545F4641 
+ 864      53543136 
+ 864      5F4D4158 
+ 864      5F5F2032 
+ 865 0bc6 01       		.byte	0x1
+ 866 0bc7 00       		.uleb128 0
+ 867 0bc8 5F5F494E 		.ascii	"__INT_FAST32_MAX__ 2147483647\000"
+ 867      545F4641 
+ 867      53543332 
+ 867      5F4D4158 
+ 867      5F5F2032 
+ 868 0be6 01       		.byte	0x1
+ 869 0be7 00       		.uleb128 0
+ 870 0be8 5F5F494E 		.ascii	"__INT_FAST64_MAX__ 9223372036854775807LL\000"
+ 870      545F4641 
+ 870      53543634 
+ 870      5F4D4158 
+ 870      5F5F2039 
+ 871 0c11 01       		.byte	0x1
+ 872 0c12 00       		.uleb128 0
+ 873 0c13 5F5F5549 		.ascii	"__UINT_FAST8_MAX__ 4294967295U\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 24
+
+
+ 873      4E545F46 
+ 873      41535438 
+ 873      5F4D4158 
+ 873      5F5F2034 
+ 874 0c32 01       		.byte	0x1
+ 875 0c33 00       		.uleb128 0
+ 876 0c34 5F5F5549 		.ascii	"__UINT_FAST16_MAX__ 4294967295U\000"
+ 876      4E545F46 
+ 876      41535431 
+ 876      365F4D41 
+ 876      585F5F20 
+ 877 0c54 01       		.byte	0x1
+ 878 0c55 00       		.uleb128 0
+ 879 0c56 5F5F5549 		.ascii	"__UINT_FAST32_MAX__ 4294967295U\000"
+ 879      4E545F46 
+ 879      41535433 
+ 879      325F4D41 
+ 879      585F5F20 
+ 880 0c76 01       		.byte	0x1
+ 881 0c77 00       		.uleb128 0
+ 882 0c78 5F5F5549 		.ascii	"__UINT_FAST64_MAX__ 18446744073709551615ULL\000"
+ 882      4E545F46 
+ 882      41535436 
+ 882      345F4D41 
+ 882      585F5F20 
+ 883 0ca4 01       		.byte	0x1
+ 884 0ca5 00       		.uleb128 0
+ 885 0ca6 5F5F494E 		.ascii	"__INTPTR_MAX__ 2147483647\000"
+ 885      54505452 
+ 885      5F4D4158 
+ 885      5F5F2032 
+ 885      31343734 
+ 886 0cc0 01       		.byte	0x1
+ 887 0cc1 00       		.uleb128 0
+ 888 0cc2 5F5F5549 		.ascii	"__UINTPTR_MAX__ 4294967295U\000"
+ 888      4E545054 
+ 888      525F4D41 
+ 888      585F5F20 
+ 888      34323934 
+ 889 0cde 01       		.byte	0x1
+ 890 0cdf 00       		.uleb128 0
+ 891 0ce0 5F5F464C 		.ascii	"__FLT_EVAL_METHOD__ 0\000"
+ 891      545F4556 
+ 891      414C5F4D 
+ 891      4554484F 
+ 891      445F5F20 
+ 892 0cf6 01       		.byte	0x1
+ 893 0cf7 00       		.uleb128 0
+ 894 0cf8 5F5F4445 		.ascii	"__DEC_EVAL_METHOD__ 2\000"
+ 894      435F4556 
+ 894      414C5F4D 
+ 894      4554484F 
+ 894      445F5F20 
+ 895 0d0e 01       		.byte	0x1
+ 896 0d0f 00       		.uleb128 0
+ 897 0d10 5F5F464C 		.ascii	"__FLT_RADIX__ 2\000"
+ 897      545F5241 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 25
+
+
+ 897      4449585F 
+ 897      5F203200 
+ 898 0d20 01       		.byte	0x1
+ 899 0d21 00       		.uleb128 0
+ 900 0d22 5F5F464C 		.ascii	"__FLT_MANT_DIG__ 24\000"
+ 900      545F4D41 
+ 900      4E545F44 
+ 900      49475F5F 
+ 900      20323400 
+ 901 0d36 01       		.byte	0x1
+ 902 0d37 00       		.uleb128 0
+ 903 0d38 5F5F464C 		.ascii	"__FLT_DIG__ 6\000"
+ 903      545F4449 
+ 903      475F5F20 
+ 903      3600
+ 904 0d46 01       		.byte	0x1
+ 905 0d47 00       		.uleb128 0
+ 906 0d48 5F5F464C 		.ascii	"__FLT_MIN_EXP__ (-125)\000"
+ 906      545F4D49 
+ 906      4E5F4558 
+ 906      505F5F20 
+ 906      282D3132 
+ 907 0d5f 01       		.byte	0x1
+ 908 0d60 00       		.uleb128 0
+ 909 0d61 5F5F464C 		.ascii	"__FLT_MIN_10_EXP__ (-37)\000"
+ 909      545F4D49 
+ 909      4E5F3130 
+ 909      5F455850 
+ 909      5F5F2028 
+ 910 0d7a 01       		.byte	0x1
+ 911 0d7b 00       		.uleb128 0
+ 912 0d7c 5F5F464C 		.ascii	"__FLT_MAX_EXP__ 128\000"
+ 912      545F4D41 
+ 912      585F4558 
+ 912      505F5F20 
+ 912      31323800 
+ 913 0d90 01       		.byte	0x1
+ 914 0d91 00       		.uleb128 0
+ 915 0d92 5F5F464C 		.ascii	"__FLT_MAX_10_EXP__ 38\000"
+ 915      545F4D41 
+ 915      585F3130 
+ 915      5F455850 
+ 915      5F5F2033 
+ 916 0da8 01       		.byte	0x1
+ 917 0da9 00       		.uleb128 0
+ 918 0daa 5F5F464C 		.ascii	"__FLT_DECIMAL_DIG__ 9\000"
+ 918      545F4445 
+ 918      43494D41 
+ 918      4C5F4449 
+ 918      475F5F20 
+ 919 0dc0 01       		.byte	0x1
+ 920 0dc1 00       		.uleb128 0
+ 921 0dc2 5F5F464C 		.ascii	"__FLT_MAX__ 3.4028234663852886e+38F\000"
+ 921      545F4D41 
+ 921      585F5F20 
+ 921      332E3430 
+ 921      32383233 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 26
+
+
+ 922 0de6 01       		.byte	0x1
+ 923 0de7 00       		.uleb128 0
+ 924 0de8 5F5F464C 		.ascii	"__FLT_MIN__ 1.1754943508222875e-38F\000"
+ 924      545F4D49 
+ 924      4E5F5F20 
+ 924      312E3137 
+ 924      35343934 
+ 925 0e0c 01       		.byte	0x1
+ 926 0e0d 00       		.uleb128 0
+ 927 0e0e 5F5F464C 		.ascii	"__FLT_EPSILON__ 1.1920928955078125e-7F\000"
+ 927      545F4550 
+ 927      53494C4F 
+ 927      4E5F5F20 
+ 927      312E3139 
+ 928 0e35 01       		.byte	0x1
+ 929 0e36 00       		.uleb128 0
+ 930 0e37 5F5F464C 		.ascii	"__FLT_DENORM_MIN__ 1.4012984643248171e-45F\000"
+ 930      545F4445 
+ 930      4E4F524D 
+ 930      5F4D494E 
+ 930      5F5F2031 
+ 931 0e62 01       		.byte	0x1
+ 932 0e63 00       		.uleb128 0
+ 933 0e64 5F5F464C 		.ascii	"__FLT_HAS_DENORM__ 1\000"
+ 933      545F4841 
+ 933      535F4445 
+ 933      4E4F524D 
+ 933      5F5F2031 
+ 934 0e79 01       		.byte	0x1
+ 935 0e7a 00       		.uleb128 0
+ 936 0e7b 5F5F464C 		.ascii	"__FLT_HAS_INFINITY__ 1\000"
+ 936      545F4841 
+ 936      535F494E 
+ 936      46494E49 
+ 936      54595F5F 
+ 937 0e92 01       		.byte	0x1
+ 938 0e93 00       		.uleb128 0
+ 939 0e94 5F5F464C 		.ascii	"__FLT_HAS_QUIET_NAN__ 1\000"
+ 939      545F4841 
+ 939      535F5155 
+ 939      4945545F 
+ 939      4E414E5F 
+ 940 0eac 01       		.byte	0x1
+ 941 0ead 00       		.uleb128 0
+ 942 0eae 5F5F4442 		.ascii	"__DBL_MANT_DIG__ 53\000"
+ 942      4C5F4D41 
+ 942      4E545F44 
+ 942      49475F5F 
+ 942      20353300 
+ 943 0ec2 01       		.byte	0x1
+ 944 0ec3 00       		.uleb128 0
+ 945 0ec4 5F5F4442 		.ascii	"__DBL_DIG__ 15\000"
+ 945      4C5F4449 
+ 945      475F5F20 
+ 945      313500
+ 946 0ed3 01       		.byte	0x1
+ 947 0ed4 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 27
+
+
+ 948 0ed5 5F5F4442 		.ascii	"__DBL_MIN_EXP__ (-1021)\000"
+ 948      4C5F4D49 
+ 948      4E5F4558 
+ 948      505F5F20 
+ 948      282D3130 
+ 949 0eed 01       		.byte	0x1
+ 950 0eee 00       		.uleb128 0
+ 951 0eef 5F5F4442 		.ascii	"__DBL_MIN_10_EXP__ (-307)\000"
+ 951      4C5F4D49 
+ 951      4E5F3130 
+ 951      5F455850 
+ 951      5F5F2028 
+ 952 0f09 01       		.byte	0x1
+ 953 0f0a 00       		.uleb128 0
+ 954 0f0b 5F5F4442 		.ascii	"__DBL_MAX_EXP__ 1024\000"
+ 954      4C5F4D41 
+ 954      585F4558 
+ 954      505F5F20 
+ 954      31303234 
+ 955 0f20 01       		.byte	0x1
+ 956 0f21 00       		.uleb128 0
+ 957 0f22 5F5F4442 		.ascii	"__DBL_MAX_10_EXP__ 308\000"
+ 957      4C5F4D41 
+ 957      585F3130 
+ 957      5F455850 
+ 957      5F5F2033 
+ 958 0f39 01       		.byte	0x1
+ 959 0f3a 00       		.uleb128 0
+ 960 0f3b 5F5F4442 		.ascii	"__DBL_DECIMAL_DIG__ 17\000"
+ 960      4C5F4445 
+ 960      43494D41 
+ 960      4C5F4449 
+ 960      475F5F20 
+ 961 0f52 01       		.byte	0x1
+ 962 0f53 00       		.uleb128 0
+ 963 0f54 5F5F4442 		.ascii	"__DBL_MAX__ ((double)1.7976931348623157e+308L)\000"
+ 963      4C5F4D41 
+ 963      585F5F20 
+ 963      2828646F 
+ 963      75626C65 
+ 964 0f83 01       		.byte	0x1
+ 965 0f84 00       		.uleb128 0
+ 966 0f85 5F5F4442 		.ascii	"__DBL_MIN__ ((double)2.2250738585072014e-308L)\000"
+ 966      4C5F4D49 
+ 966      4E5F5F20 
+ 966      2828646F 
+ 966      75626C65 
+ 967 0fb4 01       		.byte	0x1
+ 968 0fb5 00       		.uleb128 0
+ 969 0fb6 5F5F4442 		.ascii	"__DBL_EPSILON__ ((double)2.2204460492503131e-16L)\000"
+ 969      4C5F4550 
+ 969      53494C4F 
+ 969      4E5F5F20 
+ 969      2828646F 
+ 970 0fe8 01       		.byte	0x1
+ 971 0fe9 00       		.uleb128 0
+ 972 0fea 5F5F4442 		.ascii	"__DBL_DENORM_MIN__ ((double)4.9406564584124654e-324"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 28
+
+
+ 972      4C5F4445 
+ 972      4E4F524D 
+ 972      5F4D494E 
+ 972      5F5F2028 
+ 973 101d 4C2900   		.ascii	"L)\000"
+ 974 1020 01       		.byte	0x1
+ 975 1021 00       		.uleb128 0
+ 976 1022 5F5F4442 		.ascii	"__DBL_HAS_DENORM__ 1\000"
+ 976      4C5F4841 
+ 976      535F4445 
+ 976      4E4F524D 
+ 976      5F5F2031 
+ 977 1037 01       		.byte	0x1
+ 978 1038 00       		.uleb128 0
+ 979 1039 5F5F4442 		.ascii	"__DBL_HAS_INFINITY__ 1\000"
+ 979      4C5F4841 
+ 979      535F494E 
+ 979      46494E49 
+ 979      54595F5F 
+ 980 1050 01       		.byte	0x1
+ 981 1051 00       		.uleb128 0
+ 982 1052 5F5F4442 		.ascii	"__DBL_HAS_QUIET_NAN__ 1\000"
+ 982      4C5F4841 
+ 982      535F5155 
+ 982      4945545F 
+ 982      4E414E5F 
+ 983 106a 01       		.byte	0x1
+ 984 106b 00       		.uleb128 0
+ 985 106c 5F5F4C44 		.ascii	"__LDBL_MANT_DIG__ 53\000"
+ 985      424C5F4D 
+ 985      414E545F 
+ 985      4449475F 
+ 985      5F203533 
+ 986 1081 01       		.byte	0x1
+ 987 1082 00       		.uleb128 0
+ 988 1083 5F5F4C44 		.ascii	"__LDBL_DIG__ 15\000"
+ 988      424C5F44 
+ 988      49475F5F 
+ 988      20313500 
+ 989 1093 01       		.byte	0x1
+ 990 1094 00       		.uleb128 0
+ 991 1095 5F5F4C44 		.ascii	"__LDBL_MIN_EXP__ (-1021)\000"
+ 991      424C5F4D 
+ 991      494E5F45 
+ 991      58505F5F 
+ 991      20282D31 
+ 992 10ae 01       		.byte	0x1
+ 993 10af 00       		.uleb128 0
+ 994 10b0 5F5F4C44 		.ascii	"__LDBL_MIN_10_EXP__ (-307)\000"
+ 994      424C5F4D 
+ 994      494E5F31 
+ 994      305F4558 
+ 994      505F5F20 
+ 995 10cb 01       		.byte	0x1
+ 996 10cc 00       		.uleb128 0
+ 997 10cd 5F5F4C44 		.ascii	"__LDBL_MAX_EXP__ 1024\000"
+ 997      424C5F4D 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 29
+
+
+ 997      41585F45 
+ 997      58505F5F 
+ 997      20313032 
+ 998 10e3 01       		.byte	0x1
+ 999 10e4 00       		.uleb128 0
+ 1000 10e5 5F5F4C44 		.ascii	"__LDBL_MAX_10_EXP__ 308\000"
+ 1000      424C5F4D 
+ 1000      41585F31 
+ 1000      305F4558 
+ 1000      505F5F20 
+ 1001 10fd 01       		.byte	0x1
+ 1002 10fe 00       		.uleb128 0
+ 1003 10ff 5F5F4445 		.ascii	"__DECIMAL_DIG__ 17\000"
+ 1003      43494D41 
+ 1003      4C5F4449 
+ 1003      475F5F20 
+ 1003      313700
+ 1004 1112 01       		.byte	0x1
+ 1005 1113 00       		.uleb128 0
+ 1006 1114 5F5F4C44 		.ascii	"__LDBL_MAX__ 1.7976931348623157e+308L\000"
+ 1006      424C5F4D 
+ 1006      41585F5F 
+ 1006      20312E37 
+ 1006      39373639 
+ 1007 113a 01       		.byte	0x1
+ 1008 113b 00       		.uleb128 0
+ 1009 113c 5F5F4C44 		.ascii	"__LDBL_MIN__ 2.2250738585072014e-308L\000"
+ 1009      424C5F4D 
+ 1009      494E5F5F 
+ 1009      20322E32 
+ 1009      32353037 
+ 1010 1162 01       		.byte	0x1
+ 1011 1163 00       		.uleb128 0
+ 1012 1164 5F5F4C44 		.ascii	"__LDBL_EPSILON__ 2.2204460492503131e-16L\000"
+ 1012      424C5F45 
+ 1012      5053494C 
+ 1012      4F4E5F5F 
+ 1012      20322E32 
+ 1013 118d 01       		.byte	0x1
+ 1014 118e 00       		.uleb128 0
+ 1015 118f 5F5F4C44 		.ascii	"__LDBL_DENORM_MIN__ 4.9406564584124654e-324L\000"
+ 1015      424C5F44 
+ 1015      454E4F52 
+ 1015      4D5F4D49 
+ 1015      4E5F5F20 
+ 1016 11bc 01       		.byte	0x1
+ 1017 11bd 00       		.uleb128 0
+ 1018 11be 5F5F4C44 		.ascii	"__LDBL_HAS_DENORM__ 1\000"
+ 1018      424C5F48 
+ 1018      41535F44 
+ 1018      454E4F52 
+ 1018      4D5F5F20 
+ 1019 11d4 01       		.byte	0x1
+ 1020 11d5 00       		.uleb128 0
+ 1021 11d6 5F5F4C44 		.ascii	"__LDBL_HAS_INFINITY__ 1\000"
+ 1021      424C5F48 
+ 1021      41535F49 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 30
+
+
+ 1021      4E46494E 
+ 1021      4954595F 
+ 1022 11ee 01       		.byte	0x1
+ 1023 11ef 00       		.uleb128 0
+ 1024 11f0 5F5F4C44 		.ascii	"__LDBL_HAS_QUIET_NAN__ 1\000"
+ 1024      424C5F48 
+ 1024      41535F51 
+ 1024      55494554 
+ 1024      5F4E414E 
+ 1025 1209 01       		.byte	0x1
+ 1026 120a 00       		.uleb128 0
+ 1027 120b 5F5F4445 		.ascii	"__DEC32_MANT_DIG__ 7\000"
+ 1027      4333325F 
+ 1027      4D414E54 
+ 1027      5F444947 
+ 1027      5F5F2037 
+ 1028 1220 01       		.byte	0x1
+ 1029 1221 00       		.uleb128 0
+ 1030 1222 5F5F4445 		.ascii	"__DEC32_MIN_EXP__ (-94)\000"
+ 1030      4333325F 
+ 1030      4D494E5F 
+ 1030      4558505F 
+ 1030      5F20282D 
+ 1031 123a 01       		.byte	0x1
+ 1032 123b 00       		.uleb128 0
+ 1033 123c 5F5F4445 		.ascii	"__DEC32_MAX_EXP__ 97\000"
+ 1033      4333325F 
+ 1033      4D41585F 
+ 1033      4558505F 
+ 1033      5F203937 
+ 1034 1251 01       		.byte	0x1
+ 1035 1252 00       		.uleb128 0
+ 1036 1253 5F5F4445 		.ascii	"__DEC32_MIN__ 1E-95DF\000"
+ 1036      4333325F 
+ 1036      4D494E5F 
+ 1036      5F203145 
+ 1036      2D393544 
+ 1037 1269 01       		.byte	0x1
+ 1038 126a 00       		.uleb128 0
+ 1039 126b 5F5F4445 		.ascii	"__DEC32_MAX__ 9.999999E96DF\000"
+ 1039      4333325F 
+ 1039      4D41585F 
+ 1039      5F20392E 
+ 1039      39393939 
+ 1040 1287 01       		.byte	0x1
+ 1041 1288 00       		.uleb128 0
+ 1042 1289 5F5F4445 		.ascii	"__DEC32_EPSILON__ 1E-6DF\000"
+ 1042      4333325F 
+ 1042      45505349 
+ 1042      4C4F4E5F 
+ 1042      5F203145 
+ 1043 12a2 01       		.byte	0x1
+ 1044 12a3 00       		.uleb128 0
+ 1045 12a4 5F5F4445 		.ascii	"__DEC32_SUBNORMAL_MIN__ 0.000001E-95DF\000"
+ 1045      4333325F 
+ 1045      5355424E 
+ 1045      4F524D41 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 31
+
+
+ 1045      4C5F4D49 
+ 1046 12cb 01       		.byte	0x1
+ 1047 12cc 00       		.uleb128 0
+ 1048 12cd 5F5F4445 		.ascii	"__DEC64_MANT_DIG__ 16\000"
+ 1048      4336345F 
+ 1048      4D414E54 
+ 1048      5F444947 
+ 1048      5F5F2031 
+ 1049 12e3 01       		.byte	0x1
+ 1050 12e4 00       		.uleb128 0
+ 1051 12e5 5F5F4445 		.ascii	"__DEC64_MIN_EXP__ (-382)\000"
+ 1051      4336345F 
+ 1051      4D494E5F 
+ 1051      4558505F 
+ 1051      5F20282D 
+ 1052 12fe 01       		.byte	0x1
+ 1053 12ff 00       		.uleb128 0
+ 1054 1300 5F5F4445 		.ascii	"__DEC64_MAX_EXP__ 385\000"
+ 1054      4336345F 
+ 1054      4D41585F 
+ 1054      4558505F 
+ 1054      5F203338 
+ 1055 1316 01       		.byte	0x1
+ 1056 1317 00       		.uleb128 0
+ 1057 1318 5F5F4445 		.ascii	"__DEC64_MIN__ 1E-383DD\000"
+ 1057      4336345F 
+ 1057      4D494E5F 
+ 1057      5F203145 
+ 1057      2D333833 
+ 1058 132f 01       		.byte	0x1
+ 1059 1330 00       		.uleb128 0
+ 1060 1331 5F5F4445 		.ascii	"__DEC64_MAX__ 9.999999999999999E384DD\000"
+ 1060      4336345F 
+ 1060      4D41585F 
+ 1060      5F20392E 
+ 1060      39393939 
+ 1061 1357 01       		.byte	0x1
+ 1062 1358 00       		.uleb128 0
+ 1063 1359 5F5F4445 		.ascii	"__DEC64_EPSILON__ 1E-15DD\000"
+ 1063      4336345F 
+ 1063      45505349 
+ 1063      4C4F4E5F 
+ 1063      5F203145 
+ 1064 1373 01       		.byte	0x1
+ 1065 1374 00       		.uleb128 0
+ 1066 1375 5F5F4445 		.ascii	"__DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD\000"
+ 1066      4336345F 
+ 1066      5355424E 
+ 1066      4F524D41 
+ 1066      4C5F4D49 
+ 1067 13a6 01       		.byte	0x1
+ 1068 13a7 00       		.uleb128 0
+ 1069 13a8 5F5F4445 		.ascii	"__DEC128_MANT_DIG__ 34\000"
+ 1069      43313238 
+ 1069      5F4D414E 
+ 1069      545F4449 
+ 1069      475F5F20 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 32
+
+
+ 1070 13bf 01       		.byte	0x1
+ 1071 13c0 00       		.uleb128 0
+ 1072 13c1 5F5F4445 		.ascii	"__DEC128_MIN_EXP__ (-6142)\000"
+ 1072      43313238 
+ 1072      5F4D494E 
+ 1072      5F455850 
+ 1072      5F5F2028 
+ 1073 13dc 01       		.byte	0x1
+ 1074 13dd 00       		.uleb128 0
+ 1075 13de 5F5F4445 		.ascii	"__DEC128_MAX_EXP__ 6145\000"
+ 1075      43313238 
+ 1075      5F4D4158 
+ 1075      5F455850 
+ 1075      5F5F2036 
+ 1076 13f6 01       		.byte	0x1
+ 1077 13f7 00       		.uleb128 0
+ 1078 13f8 5F5F4445 		.ascii	"__DEC128_MIN__ 1E-6143DL\000"
+ 1078      43313238 
+ 1078      5F4D494E 
+ 1078      5F5F2031 
+ 1078      452D3631 
+ 1079 1411 01       		.byte	0x1
+ 1080 1412 00       		.uleb128 0
+ 1081 1413 5F5F4445 		.ascii	"__DEC128_MAX__ 9.999999999999999999999999999999999E"
+ 1081      43313238 
+ 1081      5F4D4158 
+ 1081      5F5F2039 
+ 1081      2E393939 
+ 1082 1446 36313434 		.ascii	"6144DL\000"
+ 1082      444C00
+ 1083 144d 01       		.byte	0x1
+ 1084 144e 00       		.uleb128 0
+ 1085 144f 5F5F4445 		.ascii	"__DEC128_EPSILON__ 1E-33DL\000"
+ 1085      43313238 
+ 1085      5F455053 
+ 1085      494C4F4E 
+ 1085      5F5F2031 
+ 1086 146a 01       		.byte	0x1
+ 1087 146b 00       		.uleb128 0
+ 1088 146c 5F5F4445 		.ascii	"__DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000"
+ 1088      43313238 
+ 1088      5F535542 
+ 1088      4E4F524D 
+ 1088      414C5F4D 
+ 1089 149f 30303030 		.ascii	"000000001E-6143DL\000"
+ 1089      30303030 
+ 1089      31452D36 
+ 1089      31343344 
+ 1089      4C00
+ 1090 14b1 01       		.byte	0x1
+ 1091 14b2 00       		.uleb128 0
+ 1092 14b3 5F5F5346 		.ascii	"__SFRACT_FBIT__ 7\000"
+ 1092      52414354 
+ 1092      5F464249 
+ 1092      545F5F20 
+ 1092      3700
+ 1093 14c5 01       		.byte	0x1
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 33
+
+
+ 1094 14c6 00       		.uleb128 0
+ 1095 14c7 5F5F5346 		.ascii	"__SFRACT_IBIT__ 0\000"
+ 1095      52414354 
+ 1095      5F494249 
+ 1095      545F5F20 
+ 1095      3000
+ 1096 14d9 01       		.byte	0x1
+ 1097 14da 00       		.uleb128 0
+ 1098 14db 5F5F5346 		.ascii	"__SFRACT_MIN__ (-0.5HR-0.5HR)\000"
+ 1098      52414354 
+ 1098      5F4D494E 
+ 1098      5F5F2028 
+ 1098      2D302E35 
+ 1099 14f9 01       		.byte	0x1
+ 1100 14fa 00       		.uleb128 0
+ 1101 14fb 5F5F5346 		.ascii	"__SFRACT_MAX__ 0X7FP-7HR\000"
+ 1101      52414354 
+ 1101      5F4D4158 
+ 1101      5F5F2030 
+ 1101      58374650 
+ 1102 1514 01       		.byte	0x1
+ 1103 1515 00       		.uleb128 0
+ 1104 1516 5F5F5346 		.ascii	"__SFRACT_EPSILON__ 0x1P-7HR\000"
+ 1104      52414354 
+ 1104      5F455053 
+ 1104      494C4F4E 
+ 1104      5F5F2030 
+ 1105 1532 01       		.byte	0x1
+ 1106 1533 00       		.uleb128 0
+ 1107 1534 5F5F5553 		.ascii	"__USFRACT_FBIT__ 8\000"
+ 1107      46524143 
+ 1107      545F4642 
+ 1107      49545F5F 
+ 1107      203800
+ 1108 1547 01       		.byte	0x1
+ 1109 1548 00       		.uleb128 0
+ 1110 1549 5F5F5553 		.ascii	"__USFRACT_IBIT__ 0\000"
+ 1110      46524143 
+ 1110      545F4942 
+ 1110      49545F5F 
+ 1110      203000
+ 1111 155c 01       		.byte	0x1
+ 1112 155d 00       		.uleb128 0
+ 1113 155e 5F5F5553 		.ascii	"__USFRACT_MIN__ 0.0UHR\000"
+ 1113      46524143 
+ 1113      545F4D49 
+ 1113      4E5F5F20 
+ 1113      302E3055 
+ 1114 1575 01       		.byte	0x1
+ 1115 1576 00       		.uleb128 0
+ 1116 1577 5F5F5553 		.ascii	"__USFRACT_MAX__ 0XFFP-8UHR\000"
+ 1116      46524143 
+ 1116      545F4D41 
+ 1116      585F5F20 
+ 1116      30584646 
+ 1117 1592 01       		.byte	0x1
+ 1118 1593 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 34
+
+
+ 1119 1594 5F5F5553 		.ascii	"__USFRACT_EPSILON__ 0x1P-8UHR\000"
+ 1119      46524143 
+ 1119      545F4550 
+ 1119      53494C4F 
+ 1119      4E5F5F20 
+ 1120 15b2 01       		.byte	0x1
+ 1121 15b3 00       		.uleb128 0
+ 1122 15b4 5F5F4652 		.ascii	"__FRACT_FBIT__ 15\000"
+ 1122      4143545F 
+ 1122      46424954 
+ 1122      5F5F2031 
+ 1122      3500
+ 1123 15c6 01       		.byte	0x1
+ 1124 15c7 00       		.uleb128 0
+ 1125 15c8 5F5F4652 		.ascii	"__FRACT_IBIT__ 0\000"
+ 1125      4143545F 
+ 1125      49424954 
+ 1125      5F5F2030 
+ 1125      00
+ 1126 15d9 01       		.byte	0x1
+ 1127 15da 00       		.uleb128 0
+ 1128 15db 5F5F4652 		.ascii	"__FRACT_MIN__ (-0.5R-0.5R)\000"
+ 1128      4143545F 
+ 1128      4D494E5F 
+ 1128      5F20282D 
+ 1128      302E3552 
+ 1129 15f6 01       		.byte	0x1
+ 1130 15f7 00       		.uleb128 0
+ 1131 15f8 5F5F4652 		.ascii	"__FRACT_MAX__ 0X7FFFP-15R\000"
+ 1131      4143545F 
+ 1131      4D41585F 
+ 1131      5F203058 
+ 1131      37464646 
+ 1132 1612 01       		.byte	0x1
+ 1133 1613 00       		.uleb128 0
+ 1134 1614 5F5F4652 		.ascii	"__FRACT_EPSILON__ 0x1P-15R\000"
+ 1134      4143545F 
+ 1134      45505349 
+ 1134      4C4F4E5F 
+ 1134      5F203078 
+ 1135 162f 01       		.byte	0x1
+ 1136 1630 00       		.uleb128 0
+ 1137 1631 5F5F5546 		.ascii	"__UFRACT_FBIT__ 16\000"
+ 1137      52414354 
+ 1137      5F464249 
+ 1137      545F5F20 
+ 1137      313600
+ 1138 1644 01       		.byte	0x1
+ 1139 1645 00       		.uleb128 0
+ 1140 1646 5F5F5546 		.ascii	"__UFRACT_IBIT__ 0\000"
+ 1140      52414354 
+ 1140      5F494249 
+ 1140      545F5F20 
+ 1140      3000
+ 1141 1658 01       		.byte	0x1
+ 1142 1659 00       		.uleb128 0
+ 1143 165a 5F5F5546 		.ascii	"__UFRACT_MIN__ 0.0UR\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 35
+
+
+ 1143      52414354 
+ 1143      5F4D494E 
+ 1143      5F5F2030 
+ 1143      2E305552 
+ 1144 166f 01       		.byte	0x1
+ 1145 1670 00       		.uleb128 0
+ 1146 1671 5F5F5546 		.ascii	"__UFRACT_MAX__ 0XFFFFP-16UR\000"
+ 1146      52414354 
+ 1146      5F4D4158 
+ 1146      5F5F2030 
+ 1146      58464646 
+ 1147 168d 01       		.byte	0x1
+ 1148 168e 00       		.uleb128 0
+ 1149 168f 5F5F5546 		.ascii	"__UFRACT_EPSILON__ 0x1P-16UR\000"
+ 1149      52414354 
+ 1149      5F455053 
+ 1149      494C4F4E 
+ 1149      5F5F2030 
+ 1150 16ac 01       		.byte	0x1
+ 1151 16ad 00       		.uleb128 0
+ 1152 16ae 5F5F4C46 		.ascii	"__LFRACT_FBIT__ 31\000"
+ 1152      52414354 
+ 1152      5F464249 
+ 1152      545F5F20 
+ 1152      333100
+ 1153 16c1 01       		.byte	0x1
+ 1154 16c2 00       		.uleb128 0
+ 1155 16c3 5F5F4C46 		.ascii	"__LFRACT_IBIT__ 0\000"
+ 1155      52414354 
+ 1155      5F494249 
+ 1155      545F5F20 
+ 1155      3000
+ 1156 16d5 01       		.byte	0x1
+ 1157 16d6 00       		.uleb128 0
+ 1158 16d7 5F5F4C46 		.ascii	"__LFRACT_MIN__ (-0.5LR-0.5LR)\000"
+ 1158      52414354 
+ 1158      5F4D494E 
+ 1158      5F5F2028 
+ 1158      2D302E35 
+ 1159 16f5 01       		.byte	0x1
+ 1160 16f6 00       		.uleb128 0
+ 1161 16f7 5F5F4C46 		.ascii	"__LFRACT_MAX__ 0X7FFFFFFFP-31LR\000"
+ 1161      52414354 
+ 1161      5F4D4158 
+ 1161      5F5F2030 
+ 1161      58374646 
+ 1162 1717 01       		.byte	0x1
+ 1163 1718 00       		.uleb128 0
+ 1164 1719 5F5F4C46 		.ascii	"__LFRACT_EPSILON__ 0x1P-31LR\000"
+ 1164      52414354 
+ 1164      5F455053 
+ 1164      494C4F4E 
+ 1164      5F5F2030 
+ 1165 1736 01       		.byte	0x1
+ 1166 1737 00       		.uleb128 0
+ 1167 1738 5F5F554C 		.ascii	"__ULFRACT_FBIT__ 32\000"
+ 1167      46524143 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 36
+
+
+ 1167      545F4642 
+ 1167      49545F5F 
+ 1167      20333200 
+ 1168 174c 01       		.byte	0x1
+ 1169 174d 00       		.uleb128 0
+ 1170 174e 5F5F554C 		.ascii	"__ULFRACT_IBIT__ 0\000"
+ 1170      46524143 
+ 1170      545F4942 
+ 1170      49545F5F 
+ 1170      203000
+ 1171 1761 01       		.byte	0x1
+ 1172 1762 00       		.uleb128 0
+ 1173 1763 5F5F554C 		.ascii	"__ULFRACT_MIN__ 0.0ULR\000"
+ 1173      46524143 
+ 1173      545F4D49 
+ 1173      4E5F5F20 
+ 1173      302E3055 
+ 1174 177a 01       		.byte	0x1
+ 1175 177b 00       		.uleb128 0
+ 1176 177c 5F5F554C 		.ascii	"__ULFRACT_MAX__ 0XFFFFFFFFP-32ULR\000"
+ 1176      46524143 
+ 1176      545F4D41 
+ 1176      585F5F20 
+ 1176      30584646 
+ 1177 179e 01       		.byte	0x1
+ 1178 179f 00       		.uleb128 0
+ 1179 17a0 5F5F554C 		.ascii	"__ULFRACT_EPSILON__ 0x1P-32ULR\000"
+ 1179      46524143 
+ 1179      545F4550 
+ 1179      53494C4F 
+ 1179      4E5F5F20 
+ 1180 17bf 01       		.byte	0x1
+ 1181 17c0 00       		.uleb128 0
+ 1182 17c1 5F5F4C4C 		.ascii	"__LLFRACT_FBIT__ 63\000"
+ 1182      46524143 
+ 1182      545F4642 
+ 1182      49545F5F 
+ 1182      20363300 
+ 1183 17d5 01       		.byte	0x1
+ 1184 17d6 00       		.uleb128 0
+ 1185 17d7 5F5F4C4C 		.ascii	"__LLFRACT_IBIT__ 0\000"
+ 1185      46524143 
+ 1185      545F4942 
+ 1185      49545F5F 
+ 1185      203000
+ 1186 17ea 01       		.byte	0x1
+ 1187 17eb 00       		.uleb128 0
+ 1188 17ec 5F5F4C4C 		.ascii	"__LLFRACT_MIN__ (-0.5LLR-0.5LLR)\000"
+ 1188      46524143 
+ 1188      545F4D49 
+ 1188      4E5F5F20 
+ 1188      282D302E 
+ 1189 180d 01       		.byte	0x1
+ 1190 180e 00       		.uleb128 0
+ 1191 180f 5F5F4C4C 		.ascii	"__LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR\000"
+ 1191      46524143 
+ 1191      545F4D41 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 37
+
+
+ 1191      585F5F20 
+ 1191      30583746 
+ 1192 1839 01       		.byte	0x1
+ 1193 183a 00       		.uleb128 0
+ 1194 183b 5F5F4C4C 		.ascii	"__LLFRACT_EPSILON__ 0x1P-63LLR\000"
+ 1194      46524143 
+ 1194      545F4550 
+ 1194      53494C4F 
+ 1194      4E5F5F20 
+ 1195 185a 01       		.byte	0x1
+ 1196 185b 00       		.uleb128 0
+ 1197 185c 5F5F554C 		.ascii	"__ULLFRACT_FBIT__ 64\000"
+ 1197      4C465241 
+ 1197      43545F46 
+ 1197      4249545F 
+ 1197      5F203634 
+ 1198 1871 01       		.byte	0x1
+ 1199 1872 00       		.uleb128 0
+ 1200 1873 5F5F554C 		.ascii	"__ULLFRACT_IBIT__ 0\000"
+ 1200      4C465241 
+ 1200      43545F49 
+ 1200      4249545F 
+ 1200      5F203000 
+ 1201 1887 01       		.byte	0x1
+ 1202 1888 00       		.uleb128 0
+ 1203 1889 5F5F554C 		.ascii	"__ULLFRACT_MIN__ 0.0ULLR\000"
+ 1203      4C465241 
+ 1203      43545F4D 
+ 1203      494E5F5F 
+ 1203      20302E30 
+ 1204 18a2 01       		.byte	0x1
+ 1205 18a3 00       		.uleb128 0
+ 1206 18a4 5F5F554C 		.ascii	"__ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR\000"
+ 1206      4C465241 
+ 1206      43545F4D 
+ 1206      41585F5F 
+ 1206      20305846 
+ 1207 18d0 01       		.byte	0x1
+ 1208 18d1 00       		.uleb128 0
+ 1209 18d2 5F5F554C 		.ascii	"__ULLFRACT_EPSILON__ 0x1P-64ULLR\000"
+ 1209      4C465241 
+ 1209      43545F45 
+ 1209      5053494C 
+ 1209      4F4E5F5F 
+ 1210 18f3 01       		.byte	0x1
+ 1211 18f4 00       		.uleb128 0
+ 1212 18f5 5F5F5341 		.ascii	"__SACCUM_FBIT__ 7\000"
+ 1212      4343554D 
+ 1212      5F464249 
+ 1212      545F5F20 
+ 1212      3700
+ 1213 1907 01       		.byte	0x1
+ 1214 1908 00       		.uleb128 0
+ 1215 1909 5F5F5341 		.ascii	"__SACCUM_IBIT__ 8\000"
+ 1215      4343554D 
+ 1215      5F494249 
+ 1215      545F5F20 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 38
+
+
+ 1215      3800
+ 1216 191b 01       		.byte	0x1
+ 1217 191c 00       		.uleb128 0
+ 1218 191d 5F5F5341 		.ascii	"__SACCUM_MIN__ (-0X1P7HK-0X1P7HK)\000"
+ 1218      4343554D 
+ 1218      5F4D494E 
+ 1218      5F5F2028 
+ 1218      2D305831 
+ 1219 193f 01       		.byte	0x1
+ 1220 1940 00       		.uleb128 0
+ 1221 1941 5F5F5341 		.ascii	"__SACCUM_MAX__ 0X7FFFP-7HK\000"
+ 1221      4343554D 
+ 1221      5F4D4158 
+ 1221      5F5F2030 
+ 1221      58374646 
+ 1222 195c 01       		.byte	0x1
+ 1223 195d 00       		.uleb128 0
+ 1224 195e 5F5F5341 		.ascii	"__SACCUM_EPSILON__ 0x1P-7HK\000"
+ 1224      4343554D 
+ 1224      5F455053 
+ 1224      494C4F4E 
+ 1224      5F5F2030 
+ 1225 197a 01       		.byte	0x1
+ 1226 197b 00       		.uleb128 0
+ 1227 197c 5F5F5553 		.ascii	"__USACCUM_FBIT__ 8\000"
+ 1227      41434355 
+ 1227      4D5F4642 
+ 1227      49545F5F 
+ 1227      203800
+ 1228 198f 01       		.byte	0x1
+ 1229 1990 00       		.uleb128 0
+ 1230 1991 5F5F5553 		.ascii	"__USACCUM_IBIT__ 8\000"
+ 1230      41434355 
+ 1230      4D5F4942 
+ 1230      49545F5F 
+ 1230      203800
+ 1231 19a4 01       		.byte	0x1
+ 1232 19a5 00       		.uleb128 0
+ 1233 19a6 5F5F5553 		.ascii	"__USACCUM_MIN__ 0.0UHK\000"
+ 1233      41434355 
+ 1233      4D5F4D49 
+ 1233      4E5F5F20 
+ 1233      302E3055 
+ 1234 19bd 01       		.byte	0x1
+ 1235 19be 00       		.uleb128 0
+ 1236 19bf 5F5F5553 		.ascii	"__USACCUM_MAX__ 0XFFFFP-8UHK\000"
+ 1236      41434355 
+ 1236      4D5F4D41 
+ 1236      585F5F20 
+ 1236      30584646 
+ 1237 19dc 01       		.byte	0x1
+ 1238 19dd 00       		.uleb128 0
+ 1239 19de 5F5F5553 		.ascii	"__USACCUM_EPSILON__ 0x1P-8UHK\000"
+ 1239      41434355 
+ 1239      4D5F4550 
+ 1239      53494C4F 
+ 1239      4E5F5F20 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 39
+
+
+ 1240 19fc 01       		.byte	0x1
+ 1241 19fd 00       		.uleb128 0
+ 1242 19fe 5F5F4143 		.ascii	"__ACCUM_FBIT__ 15\000"
+ 1242      43554D5F 
+ 1242      46424954 
+ 1242      5F5F2031 
+ 1242      3500
+ 1243 1a10 01       		.byte	0x1
+ 1244 1a11 00       		.uleb128 0
+ 1245 1a12 5F5F4143 		.ascii	"__ACCUM_IBIT__ 16\000"
+ 1245      43554D5F 
+ 1245      49424954 
+ 1245      5F5F2031 
+ 1245      3600
+ 1246 1a24 01       		.byte	0x1
+ 1247 1a25 00       		.uleb128 0
+ 1248 1a26 5F5F4143 		.ascii	"__ACCUM_MIN__ (-0X1P15K-0X1P15K)\000"
+ 1248      43554D5F 
+ 1248      4D494E5F 
+ 1248      5F20282D 
+ 1248      30583150 
+ 1249 1a47 01       		.byte	0x1
+ 1250 1a48 00       		.uleb128 0
+ 1251 1a49 5F5F4143 		.ascii	"__ACCUM_MAX__ 0X7FFFFFFFP-15K\000"
+ 1251      43554D5F 
+ 1251      4D41585F 
+ 1251      5F203058 
+ 1251      37464646 
+ 1252 1a67 01       		.byte	0x1
+ 1253 1a68 00       		.uleb128 0
+ 1254 1a69 5F5F4143 		.ascii	"__ACCUM_EPSILON__ 0x1P-15K\000"
+ 1254      43554D5F 
+ 1254      45505349 
+ 1254      4C4F4E5F 
+ 1254      5F203078 
+ 1255 1a84 01       		.byte	0x1
+ 1256 1a85 00       		.uleb128 0
+ 1257 1a86 5F5F5541 		.ascii	"__UACCUM_FBIT__ 16\000"
+ 1257      4343554D 
+ 1257      5F464249 
+ 1257      545F5F20 
+ 1257      313600
+ 1258 1a99 01       		.byte	0x1
+ 1259 1a9a 00       		.uleb128 0
+ 1260 1a9b 5F5F5541 		.ascii	"__UACCUM_IBIT__ 16\000"
+ 1260      4343554D 
+ 1260      5F494249 
+ 1260      545F5F20 
+ 1260      313600
+ 1261 1aae 01       		.byte	0x1
+ 1262 1aaf 00       		.uleb128 0
+ 1263 1ab0 5F5F5541 		.ascii	"__UACCUM_MIN__ 0.0UK\000"
+ 1263      4343554D 
+ 1263      5F4D494E 
+ 1263      5F5F2030 
+ 1263      2E30554B 
+ 1264 1ac5 01       		.byte	0x1
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 40
+
+
+ 1265 1ac6 00       		.uleb128 0
+ 1266 1ac7 5F5F5541 		.ascii	"__UACCUM_MAX__ 0XFFFFFFFFP-16UK\000"
+ 1266      4343554D 
+ 1266      5F4D4158 
+ 1266      5F5F2030 
+ 1266      58464646 
+ 1267 1ae7 01       		.byte	0x1
+ 1268 1ae8 00       		.uleb128 0
+ 1269 1ae9 5F5F5541 		.ascii	"__UACCUM_EPSILON__ 0x1P-16UK\000"
+ 1269      4343554D 
+ 1269      5F455053 
+ 1269      494C4F4E 
+ 1269      5F5F2030 
+ 1270 1b06 01       		.byte	0x1
+ 1271 1b07 00       		.uleb128 0
+ 1272 1b08 5F5F4C41 		.ascii	"__LACCUM_FBIT__ 31\000"
+ 1272      4343554D 
+ 1272      5F464249 
+ 1272      545F5F20 
+ 1272      333100
+ 1273 1b1b 01       		.byte	0x1
+ 1274 1b1c 00       		.uleb128 0
+ 1275 1b1d 5F5F4C41 		.ascii	"__LACCUM_IBIT__ 32\000"
+ 1275      4343554D 
+ 1275      5F494249 
+ 1275      545F5F20 
+ 1275      333200
+ 1276 1b30 01       		.byte	0x1
+ 1277 1b31 00       		.uleb128 0
+ 1278 1b32 5F5F4C41 		.ascii	"__LACCUM_MIN__ (-0X1P31LK-0X1P31LK)\000"
+ 1278      4343554D 
+ 1278      5F4D494E 
+ 1278      5F5F2028 
+ 1278      2D305831 
+ 1279 1b56 01       		.byte	0x1
+ 1280 1b57 00       		.uleb128 0
+ 1281 1b58 5F5F4C41 		.ascii	"__LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK\000"
+ 1281      4343554D 
+ 1281      5F4D4158 
+ 1281      5F5F2030 
+ 1281      58374646 
+ 1282 1b80 01       		.byte	0x1
+ 1283 1b81 00       		.uleb128 0
+ 1284 1b82 5F5F4C41 		.ascii	"__LACCUM_EPSILON__ 0x1P-31LK\000"
+ 1284      4343554D 
+ 1284      5F455053 
+ 1284      494C4F4E 
+ 1284      5F5F2030 
+ 1285 1b9f 01       		.byte	0x1
+ 1286 1ba0 00       		.uleb128 0
+ 1287 1ba1 5F5F554C 		.ascii	"__ULACCUM_FBIT__ 32\000"
+ 1287      41434355 
+ 1287      4D5F4642 
+ 1287      49545F5F 
+ 1287      20333200 
+ 1288 1bb5 01       		.byte	0x1
+ 1289 1bb6 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 41
+
+
+ 1290 1bb7 5F5F554C 		.ascii	"__ULACCUM_IBIT__ 32\000"
+ 1290      41434355 
+ 1290      4D5F4942 
+ 1290      49545F5F 
+ 1290      20333200 
+ 1291 1bcb 01       		.byte	0x1
+ 1292 1bcc 00       		.uleb128 0
+ 1293 1bcd 5F5F554C 		.ascii	"__ULACCUM_MIN__ 0.0ULK\000"
+ 1293      41434355 
+ 1293      4D5F4D49 
+ 1293      4E5F5F20 
+ 1293      302E3055 
+ 1294 1be4 01       		.byte	0x1
+ 1295 1be5 00       		.uleb128 0
+ 1296 1be6 5F5F554C 		.ascii	"__ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK\000"
+ 1296      41434355 
+ 1296      4D5F4D41 
+ 1296      585F5F20 
+ 1296      30584646 
+ 1297 1c10 01       		.byte	0x1
+ 1298 1c11 00       		.uleb128 0
+ 1299 1c12 5F5F554C 		.ascii	"__ULACCUM_EPSILON__ 0x1P-32ULK\000"
+ 1299      41434355 
+ 1299      4D5F4550 
+ 1299      53494C4F 
+ 1299      4E5F5F20 
+ 1300 1c31 01       		.byte	0x1
+ 1301 1c32 00       		.uleb128 0
+ 1302 1c33 5F5F4C4C 		.ascii	"__LLACCUM_FBIT__ 31\000"
+ 1302      41434355 
+ 1302      4D5F4642 
+ 1302      49545F5F 
+ 1302      20333100 
+ 1303 1c47 01       		.byte	0x1
+ 1304 1c48 00       		.uleb128 0
+ 1305 1c49 5F5F4C4C 		.ascii	"__LLACCUM_IBIT__ 32\000"
+ 1305      41434355 
+ 1305      4D5F4942 
+ 1305      49545F5F 
+ 1305      20333200 
+ 1306 1c5d 01       		.byte	0x1
+ 1307 1c5e 00       		.uleb128 0
+ 1308 1c5f 5F5F4C4C 		.ascii	"__LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)\000"
+ 1308      41434355 
+ 1308      4D5F4D49 
+ 1308      4E5F5F20 
+ 1308      282D3058 
+ 1309 1c86 01       		.byte	0x1
+ 1310 1c87 00       		.uleb128 0
+ 1311 1c88 5F5F4C4C 		.ascii	"__LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK\000"
+ 1311      41434355 
+ 1311      4D5F4D41 
+ 1311      585F5F20 
+ 1311      30583746 
+ 1312 1cb2 01       		.byte	0x1
+ 1313 1cb3 00       		.uleb128 0
+ 1314 1cb4 5F5F4C4C 		.ascii	"__LLACCUM_EPSILON__ 0x1P-31LLK\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 42
+
+
+ 1314      41434355 
+ 1314      4D5F4550 
+ 1314      53494C4F 
+ 1314      4E5F5F20 
+ 1315 1cd3 01       		.byte	0x1
+ 1316 1cd4 00       		.uleb128 0
+ 1317 1cd5 5F5F554C 		.ascii	"__ULLACCUM_FBIT__ 32\000"
+ 1317      4C414343 
+ 1317      554D5F46 
+ 1317      4249545F 
+ 1317      5F203332 
+ 1318 1cea 01       		.byte	0x1
+ 1319 1ceb 00       		.uleb128 0
+ 1320 1cec 5F5F554C 		.ascii	"__ULLACCUM_IBIT__ 32\000"
+ 1320      4C414343 
+ 1320      554D5F49 
+ 1320      4249545F 
+ 1320      5F203332 
+ 1321 1d01 01       		.byte	0x1
+ 1322 1d02 00       		.uleb128 0
+ 1323 1d03 5F5F554C 		.ascii	"__ULLACCUM_MIN__ 0.0ULLK\000"
+ 1323      4C414343 
+ 1323      554D5F4D 
+ 1323      494E5F5F 
+ 1323      20302E30 
+ 1324 1d1c 01       		.byte	0x1
+ 1325 1d1d 00       		.uleb128 0
+ 1326 1d1e 5F5F554C 		.ascii	"__ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK\000"
+ 1326      4C414343 
+ 1326      554D5F4D 
+ 1326      41585F5F 
+ 1326      20305846 
+ 1327 1d4a 01       		.byte	0x1
+ 1328 1d4b 00       		.uleb128 0
+ 1329 1d4c 5F5F554C 		.ascii	"__ULLACCUM_EPSILON__ 0x1P-32ULLK\000"
+ 1329      4C414343 
+ 1329      554D5F45 
+ 1329      5053494C 
+ 1329      4F4E5F5F 
+ 1330 1d6d 01       		.byte	0x1
+ 1331 1d6e 00       		.uleb128 0
+ 1332 1d6f 5F5F5151 		.ascii	"__QQ_FBIT__ 7\000"
+ 1332      5F464249 
+ 1332      545F5F20 
+ 1332      3700
+ 1333 1d7d 01       		.byte	0x1
+ 1334 1d7e 00       		.uleb128 0
+ 1335 1d7f 5F5F5151 		.ascii	"__QQ_IBIT__ 0\000"
+ 1335      5F494249 
+ 1335      545F5F20 
+ 1335      3000
+ 1336 1d8d 01       		.byte	0x1
+ 1337 1d8e 00       		.uleb128 0
+ 1338 1d8f 5F5F4851 		.ascii	"__HQ_FBIT__ 15\000"
+ 1338      5F464249 
+ 1338      545F5F20 
+ 1338      313500
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 43
+
+
+ 1339 1d9e 01       		.byte	0x1
+ 1340 1d9f 00       		.uleb128 0
+ 1341 1da0 5F5F4851 		.ascii	"__HQ_IBIT__ 0\000"
+ 1341      5F494249 
+ 1341      545F5F20 
+ 1341      3000
+ 1342 1dae 01       		.byte	0x1
+ 1343 1daf 00       		.uleb128 0
+ 1344 1db0 5F5F5351 		.ascii	"__SQ_FBIT__ 31\000"
+ 1344      5F464249 
+ 1344      545F5F20 
+ 1344      333100
+ 1345 1dbf 01       		.byte	0x1
+ 1346 1dc0 00       		.uleb128 0
+ 1347 1dc1 5F5F5351 		.ascii	"__SQ_IBIT__ 0\000"
+ 1347      5F494249 
+ 1347      545F5F20 
+ 1347      3000
+ 1348 1dcf 01       		.byte	0x1
+ 1349 1dd0 00       		.uleb128 0
+ 1350 1dd1 5F5F4451 		.ascii	"__DQ_FBIT__ 63\000"
+ 1350      5F464249 
+ 1350      545F5F20 
+ 1350      363300
+ 1351 1de0 01       		.byte	0x1
+ 1352 1de1 00       		.uleb128 0
+ 1353 1de2 5F5F4451 		.ascii	"__DQ_IBIT__ 0\000"
+ 1353      5F494249 
+ 1353      545F5F20 
+ 1353      3000
+ 1354 1df0 01       		.byte	0x1
+ 1355 1df1 00       		.uleb128 0
+ 1356 1df2 5F5F5451 		.ascii	"__TQ_FBIT__ 127\000"
+ 1356      5F464249 
+ 1356      545F5F20 
+ 1356      31323700 
+ 1357 1e02 01       		.byte	0x1
+ 1358 1e03 00       		.uleb128 0
+ 1359 1e04 5F5F5451 		.ascii	"__TQ_IBIT__ 0\000"
+ 1359      5F494249 
+ 1359      545F5F20 
+ 1359      3000
+ 1360 1e12 01       		.byte	0x1
+ 1361 1e13 00       		.uleb128 0
+ 1362 1e14 5F5F5551 		.ascii	"__UQQ_FBIT__ 8\000"
+ 1362      515F4642 
+ 1362      49545F5F 
+ 1362      203800
+ 1363 1e23 01       		.byte	0x1
+ 1364 1e24 00       		.uleb128 0
+ 1365 1e25 5F5F5551 		.ascii	"__UQQ_IBIT__ 0\000"
+ 1365      515F4942 
+ 1365      49545F5F 
+ 1365      203000
+ 1366 1e34 01       		.byte	0x1
+ 1367 1e35 00       		.uleb128 0
+ 1368 1e36 5F5F5548 		.ascii	"__UHQ_FBIT__ 16\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 44
+
+
+ 1368      515F4642 
+ 1368      49545F5F 
+ 1368      20313600 
+ 1369 1e46 01       		.byte	0x1
+ 1370 1e47 00       		.uleb128 0
+ 1371 1e48 5F5F5548 		.ascii	"__UHQ_IBIT__ 0\000"
+ 1371      515F4942 
+ 1371      49545F5F 
+ 1371      203000
+ 1372 1e57 01       		.byte	0x1
+ 1373 1e58 00       		.uleb128 0
+ 1374 1e59 5F5F5553 		.ascii	"__USQ_FBIT__ 32\000"
+ 1374      515F4642 
+ 1374      49545F5F 
+ 1374      20333200 
+ 1375 1e69 01       		.byte	0x1
+ 1376 1e6a 00       		.uleb128 0
+ 1377 1e6b 5F5F5553 		.ascii	"__USQ_IBIT__ 0\000"
+ 1377      515F4942 
+ 1377      49545F5F 
+ 1377      203000
+ 1378 1e7a 01       		.byte	0x1
+ 1379 1e7b 00       		.uleb128 0
+ 1380 1e7c 5F5F5544 		.ascii	"__UDQ_FBIT__ 64\000"
+ 1380      515F4642 
+ 1380      49545F5F 
+ 1380      20363400 
+ 1381 1e8c 01       		.byte	0x1
+ 1382 1e8d 00       		.uleb128 0
+ 1383 1e8e 5F5F5544 		.ascii	"__UDQ_IBIT__ 0\000"
+ 1383      515F4942 
+ 1383      49545F5F 
+ 1383      203000
+ 1384 1e9d 01       		.byte	0x1
+ 1385 1e9e 00       		.uleb128 0
+ 1386 1e9f 5F5F5554 		.ascii	"__UTQ_FBIT__ 128\000"
+ 1386      515F4642 
+ 1386      49545F5F 
+ 1386      20313238 
+ 1386      00
+ 1387 1eb0 01       		.byte	0x1
+ 1388 1eb1 00       		.uleb128 0
+ 1389 1eb2 5F5F5554 		.ascii	"__UTQ_IBIT__ 0\000"
+ 1389      515F4942 
+ 1389      49545F5F 
+ 1389      203000
+ 1390 1ec1 01       		.byte	0x1
+ 1391 1ec2 00       		.uleb128 0
+ 1392 1ec3 5F5F4841 		.ascii	"__HA_FBIT__ 7\000"
+ 1392      5F464249 
+ 1392      545F5F20 
+ 1392      3700
+ 1393 1ed1 01       		.byte	0x1
+ 1394 1ed2 00       		.uleb128 0
+ 1395 1ed3 5F5F4841 		.ascii	"__HA_IBIT__ 8\000"
+ 1395      5F494249 
+ 1395      545F5F20 
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 45
+
+
+ 1395      3800
+ 1396 1ee1 01       		.byte	0x1
+ 1397 1ee2 00       		.uleb128 0
+ 1398 1ee3 5F5F5341 		.ascii	"__SA_FBIT__ 15\000"
+ 1398      5F464249 
+ 1398      545F5F20 
+ 1398      313500
+ 1399 1ef2 01       		.byte	0x1
+ 1400 1ef3 00       		.uleb128 0
+ 1401 1ef4 5F5F5341 		.ascii	"__SA_IBIT__ 16\000"
+ 1401      5F494249 
+ 1401      545F5F20 
+ 1401      313600
+ 1402 1f03 01       		.byte	0x1
+ 1403 1f04 00       		.uleb128 0
+ 1404 1f05 5F5F4441 		.ascii	"__DA_FBIT__ 31\000"
+ 1404      5F464249 
+ 1404      545F5F20 
+ 1404      333100
+ 1405 1f14 01       		.byte	0x1
+ 1406 1f15 00       		.uleb128 0
+ 1407 1f16 5F5F4441 		.ascii	"__DA_IBIT__ 32\000"
+ 1407      5F494249 
+ 1407      545F5F20 
+ 1407      333200
+ 1408 1f25 01       		.byte	0x1
+ 1409 1f26 00       		.uleb128 0
+ 1410 1f27 5F5F5441 		.ascii	"__TA_FBIT__ 63\000"
+ 1410      5F464249 
+ 1410      545F5F20 
+ 1410      363300
+ 1411 1f36 01       		.byte	0x1
+ 1412 1f37 00       		.uleb128 0
+ 1413 1f38 5F5F5441 		.ascii	"__TA_IBIT__ 64\000"
+ 1413      5F494249 
+ 1413      545F5F20 
+ 1413      363400
+ 1414 1f47 01       		.byte	0x1
+ 1415 1f48 00       		.uleb128 0
+ 1416 1f49 5F5F5548 		.ascii	"__UHA_FBIT__ 8\000"
+ 1416      415F4642 
+ 1416      49545F5F 
+ 1416      203800
+ 1417 1f58 01       		.byte	0x1
+ 1418 1f59 00       		.uleb128 0
+ 1419 1f5a 5F5F5548 		.ascii	"__UHA_IBIT__ 8\000"
+ 1419      415F4942 
+ 1419      49545F5F 
+ 1419      203800
+ 1420 1f69 01       		.byte	0x1
+ 1421 1f6a 00       		.uleb128 0
+ 1422 1f6b 5F5F5553 		.ascii	"__USA_FBIT__ 16\000"
+ 1422      415F4642 
+ 1422      49545F5F 
+ 1422      20313600 
+ 1423 1f7b 01       		.byte	0x1
+ 1424 1f7c 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 46
+
+
+ 1425 1f7d 5F5F5553 		.ascii	"__USA_IBIT__ 16\000"
+ 1425      415F4942 
+ 1425      49545F5F 
+ 1425      20313600 
+ 1426 1f8d 01       		.byte	0x1
+ 1427 1f8e 00       		.uleb128 0
+ 1428 1f8f 5F5F5544 		.ascii	"__UDA_FBIT__ 32\000"
+ 1428      415F4642 
+ 1428      49545F5F 
+ 1428      20333200 
+ 1429 1f9f 01       		.byte	0x1
+ 1430 1fa0 00       		.uleb128 0
+ 1431 1fa1 5F5F5544 		.ascii	"__UDA_IBIT__ 32\000"
+ 1431      415F4942 
+ 1431      49545F5F 
+ 1431      20333200 
+ 1432 1fb1 01       		.byte	0x1
+ 1433 1fb2 00       		.uleb128 0
+ 1434 1fb3 5F5F5554 		.ascii	"__UTA_FBIT__ 64\000"
+ 1434      415F4642 
+ 1434      49545F5F 
+ 1434      20363400 
+ 1435 1fc3 01       		.byte	0x1
+ 1436 1fc4 00       		.uleb128 0
+ 1437 1fc5 5F5F5554 		.ascii	"__UTA_IBIT__ 64\000"
+ 1437      415F4942 
+ 1437      49545F5F 
+ 1437      20363400 
+ 1438 1fd5 01       		.byte	0x1
+ 1439 1fd6 00       		.uleb128 0
+ 1440 1fd7 5F5F5245 		.ascii	"__REGISTER_PREFIX__ \000"
+ 1440      47495354 
+ 1440      45525F50 
+ 1440      52454649 
+ 1440      585F5F20 
+ 1441 1fec 01       		.byte	0x1
+ 1442 1fed 00       		.uleb128 0
+ 1443 1fee 5F5F5553 		.ascii	"__USER_LABEL_PREFIX__ \000"
+ 1443      45525F4C 
+ 1443      4142454C 
+ 1443      5F505245 
+ 1443      4649585F 
+ 1444 2005 01       		.byte	0x1
+ 1445 2006 00       		.uleb128 0
+ 1446 2007 5F5F474E 		.ascii	"__GNUC_GNU_INLINE__ 1\000"
+ 1446      55435F47 
+ 1446      4E555F49 
+ 1446      4E4C494E 
+ 1446      455F5F20 
+ 1447 201d 01       		.byte	0x1
+ 1448 201e 00       		.uleb128 0
+ 1449 201f 5F5F4E4F 		.ascii	"__NO_INLINE__ 1\000"
+ 1449      5F494E4C 
+ 1449      494E455F 
+ 1449      5F203100 
+ 1450 202f 01       		.byte	0x1
+ 1451 2030 00       		.uleb128 0
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 47
+
+
+ 1452 2031 5F5F4348 		.ascii	"__CHAR_UNSIGNED__ 1\000"
+ 1452      41525F55 
+ 1452      4E534947 
+ 1452      4E45445F 
+ 1452      5F203100 
+ 1453 2045 01       		.byte	0x1
+ 1454 2046 00       		.uleb128 0
+ 1455 2047 5F5F4743 		.ascii	"__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1\000"
+ 1455      435F4841 
+ 1455      56455F53 
+ 1455      594E435F 
+ 1455      434F4D50 
+ 1456 206c 01       		.byte	0x1
+ 1457 206d 00       		.uleb128 0
+ 1458 206e 5F5F4743 		.ascii	"__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1\000"
+ 1458      435F4841 
+ 1458      56455F53 
+ 1458      594E435F 
+ 1458      434F4D50 
+ 1459 2093 01       		.byte	0x1
+ 1460 2094 00       		.uleb128 0
+ 1461 2095 5F5F4743 		.ascii	"__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1\000"
+ 1461      435F4841 
+ 1461      56455F53 
+ 1461      594E435F 
+ 1461      434F4D50 
+ 1462 20ba 01       		.byte	0x1
+ 1463 20bb 00       		.uleb128 0
+ 1464 20bc 5F5F4743 		.ascii	"__GCC_HAVE_DWARF2_CFI_ASM 1\000"
+ 1464      435F4841 
+ 1464      56455F44 
+ 1464      57415246 
+ 1464      325F4346 
+ 1465 20d8 01       		.byte	0x1
+ 1466 20d9 00       		.uleb128 0
+ 1467 20da 5F5F5052 		.ascii	"__PRAGMA_REDEFINE_EXTNAME 1\000"
+ 1467      41474D41 
+ 1467      5F524544 
+ 1467      4546494E 
+ 1467      455F4558 
+ 1468 20f6 01       		.byte	0x1
+ 1469 20f7 00       		.uleb128 0
+ 1470 20f8 5F5F5349 		.ascii	"__SIZEOF_WCHAR_T__ 4\000"
+ 1470      5A454F46 
+ 1470      5F574348 
+ 1470      41525F54 
+ 1470      5F5F2034 
+ 1471 210d 01       		.byte	0x1
+ 1472 210e 00       		.uleb128 0
+ 1473 210f 5F5F5349 		.ascii	"__SIZEOF_WINT_T__ 4\000"
+ 1473      5A454F46 
+ 1473      5F57494E 
+ 1473      545F545F 
+ 1473      5F203400 
+ 1474 2123 01       		.byte	0x1
+ 1475 2124 00       		.uleb128 0
+ 1476 2125 5F5F5349 		.ascii	"__SIZEOF_PTRDIFF_T__ 4\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 48
+
+
+ 1476      5A454F46 
+ 1476      5F505452 
+ 1476      44494646 
+ 1476      5F545F5F 
+ 1477 213c 01       		.byte	0x1
+ 1478 213d 00       		.uleb128 0
+ 1479 213e 5F5F6172 		.ascii	"__arm__ 1\000"
+ 1479      6D5F5F20 
+ 1479      3100
+ 1480 2148 01       		.byte	0x1
+ 1481 2149 00       		.uleb128 0
+ 1482 214a 5F5F4150 		.ascii	"__APCS_32__ 1\000"
+ 1482      43535F33 
+ 1482      325F5F20 
+ 1482      3100
+ 1483 2158 01       		.byte	0x1
+ 1484 2159 00       		.uleb128 0
+ 1485 215a 5F5F7468 		.ascii	"__thumb__ 1\000"
+ 1485      756D625F 
+ 1485      5F203100 
+ 1486 2166 01       		.byte	0x1
+ 1487 2167 00       		.uleb128 0
+ 1488 2168 5F5F7468 		.ascii	"__thumb2__ 1\000"
+ 1488      756D6232 
+ 1488      5F5F2031 
+ 1488      00
+ 1489 2175 01       		.byte	0x1
+ 1490 2176 00       		.uleb128 0
+ 1491 2177 5F5F4152 		.ascii	"__ARMEL__ 1\000"
+ 1491      4D454C5F 
+ 1491      5F203100 
+ 1492 2183 01       		.byte	0x1
+ 1493 2184 00       		.uleb128 0
+ 1494 2185 5F5F5448 		.ascii	"__THUMBEL__ 1\000"
+ 1494      554D4245 
+ 1494      4C5F5F20 
+ 1494      3100
+ 1495 2193 01       		.byte	0x1
+ 1496 2194 00       		.uleb128 0
+ 1497 2195 5F5F534F 		.ascii	"__SOFTFP__ 1\000"
+ 1497      46544650 
+ 1497      5F5F2031 
+ 1497      00
+ 1498 21a2 01       		.byte	0x1
+ 1499 21a3 00       		.uleb128 0
+ 1500 21a4 5F5F5646 		.ascii	"__VFP_FP__ 1\000"
+ 1500      505F4650 
+ 1500      5F5F2031 
+ 1500      00
+ 1501 21b1 01       		.byte	0x1
+ 1502 21b2 00       		.uleb128 0
+ 1503 21b3 5F5F5448 		.ascii	"__THUMB_INTERWORK__ 1\000"
+ 1503      554D425F 
+ 1503      494E5445 
+ 1503      52574F52 
+ 1503      4B5F5F20 
+ 1504 21c9 01       		.byte	0x1
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 49
+
+
+ 1505 21ca 00       		.uleb128 0
+ 1506 21cb 5F5F4152 		.ascii	"__ARM_ARCH_7M__ 1\000"
+ 1506      4D5F4152 
+ 1506      43485F37 
+ 1506      4D5F5F20 
+ 1506      3100
+ 1507 21dd 01       		.byte	0x1
+ 1508 21de 00       		.uleb128 0
+ 1509 21df 5F5F4152 		.ascii	"__ARM_PCS 1\000"
+ 1509      4D5F5043 
+ 1509      53203100 
+ 1510 21eb 01       		.byte	0x1
+ 1511 21ec 00       		.uleb128 0
+ 1512 21ed 5F5F4152 		.ascii	"__ARM_EABI__ 1\000"
+ 1512      4D5F4541 
+ 1512      42495F5F 
+ 1512      203100
+ 1513 21fc 01       		.byte	0x1
+ 1514 21fd 00       		.uleb128 0
+ 1515 21fe 5F5F4152 		.ascii	"__ARM_ARCH_EXT_IDIV__ 1\000"
+ 1515      4D5F4152 
+ 1515      43485F45 
+ 1515      58545F49 
+ 1515      4449565F 
+ 1516 2216 01       		.byte	0x1
+ 1517 2217 00       		.uleb128 0
+ 1518 2218 5F5F4758 		.ascii	"__GXX_TYPEINFO_EQUALITY_INLINE 0\000"
+ 1518      585F5459 
+ 1518      5045494E 
+ 1518      464F5F45 
+ 1518      5155414C 
+ 1519 2239 01       		.byte	0x1
+ 1520 223a 00       		.uleb128 0
+ 1521 223b 5F5F454C 		.ascii	"__ELF__ 1\000"
+ 1521      465F5F20 
+ 1521      3100
+ 1522 2245 01       		.byte	0x1
+ 1523 2246 00       		.uleb128 0
+ 1524 2247 5F5F5553 		.ascii	"__USES_INITFINI__ 1\000"
+ 1524      45535F49 
+ 1524      4E495446 
+ 1524      494E495F 
+ 1524      5F203100 
+ 1525 225b 01       		.byte	0x1
+ 1526 225c 00       		.uleb128 0
+ 1527 225d 53544D33 		.ascii	"STM32F10X_MD 1\000"
+ 1527      32463130 
+ 1527      585F4D44 
+ 1527      203100
+ 1528 226c 03       		.byte	0x3
+ 1529 226d 00       		.uleb128 0
+ 1530 226e 01       		.uleb128 0x1
+ 1531 226f 04       		.byte	0x4
+ 1532 2270 00       		.byte	0
+ 1533              		.section	.debug_str,"MS",%progbits,1
+ 1534              	.LASF5:
+ 1535 0000 76656374 		.ascii	"vectors.c\000"
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 50
+
+
+ 1535      6F72732E 
+ 1535      6300
+ 1536              	.LASF6:
+ 1537 000a 453A5C50 		.ascii	"E:\\PenDrive\\ARM6\\stm32_blink_led\000"
+ 1537      656E4472 
+ 1537      6976655C 
+ 1537      41524D36 
+ 1537      5C73746D 
+ 1538              	.LASF0:
+ 1539 002b 5F5F6D61 		.ascii	"__main_stack_end\000"
+ 1539      696E5F73 
+ 1539      7461636B 
+ 1539      5F656E64 
+ 1539      00
+ 1540              	.LASF3:
+ 1541 003c 76656374 		.ascii	"vectors\000"
+ 1541      6F727300 
+ 1542              	.LASF2:
+ 1543 0044 756E7369 		.ascii	"unsigned int\000"
+ 1543      676E6564 
+ 1543      20696E74 
+ 1543      00
+ 1544              	.LASF7:
+ 1545 0051 5F5F4465 		.ascii	"__Default_Handler\000"
+ 1545      6661756C 
+ 1545      745F4861 
+ 1545      6E646C65 
+ 1545      7200
+ 1546              	.LASF4:
+ 1547 0063 474E5520 		.ascii	"GNU C 4.6.2 20120613 (release) [ARM/embedded-4_6-br"
+ 1547      4320342E 
+ 1547      362E3220 
+ 1547      32303132 
+ 1547      30363133 
+ 1548 0096 616E6368 		.ascii	"anch revision 188521]\000"
+ 1548      20726576 
+ 1548      6973696F 
+ 1548      6E203138 
+ 1548      38353231 
+ 1549              	.LASF1:
+ 1550 00ac 63686172 		.ascii	"char\000"
+ 1550      00
+ 1551              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.6.2 20120613 (release) [ARM/embedded-4_6-br
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 51
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 vectors.c
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:50     .text.__Default_Handler:00000000 $t
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Default_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:86     .vectors:00000000 vectors
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:83     .vectors:00000000 $d
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 NMI_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 HardFault_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 MemManage_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 BusFault_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 UsageFault_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Reserved_0x1C_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Reserved_0x20_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Reserved_0x24_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Reserved_0x28_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SVC_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DebugMon_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 __Reserved_0x34_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 PendSV_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SysTick_Handler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 WWDG_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 PVD_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TAMPER_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 RTC_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 FLASH_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 RCC_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI0_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI4_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel4_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel5_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel6_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA1_Channel7_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 ADC1_2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USB_HP_CAN_TX_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USB_LP_CAN_RX0_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 CAN_RX1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 CAN_SCE_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI9_5_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM1_BRK_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM1_UP_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM1_TRG_COM_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM1_CC_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM4_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 I2C1_EV_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 I2C1_ER_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 I2C2_EV_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 I2C2_ER_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SPI1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SPI2_IRQHandler
+ARM GAS  C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s 			page 52
+
+
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USART1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USART2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USART3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 EXTI15_10_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 RTCAlarm_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 USBWakeup_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM8_BRK_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM8_UP_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM8_TRG_COM_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM8_CC_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 ADC3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 FSMC_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SDIO_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM5_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 SPI3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 UART4_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 UART5_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM6_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 TIM7_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA2_Channel1_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA2_Channel2_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA2_Channel3_IRQHandler
+C:\Users\Dawid\AppData\Local\Temp\cc9avucL.s:54     .text.__Default_Handler:00000000 DMA2_Channel4_5_IRQHandler
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__main_stack_end
+Reset_Handler
